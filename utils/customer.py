@@ -4,7 +4,7 @@ class Customer:
     These customers is going to fll `Depot` classes.
     """
 
-    def __int__(self, id, x, y, cost, null=False):
+    def __init__(self, id, x, y, cost, null=False):
         """
 
         :param id: ID assigned to node for tracking
