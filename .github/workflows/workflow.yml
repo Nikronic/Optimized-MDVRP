@@ -5,13 +5,19 @@ on: [push]
 jobs:
   build:
 
-    runs-on: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Setup Python
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.6'
+        architecture: 'x64'
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
+      shell: pwsh
+    - name: GitHub Action for pytest
+      uses: cclauss/GitHub-Action-for-pytest@0.0.2
+    - name: Run Pytest tests
+      run: python pytest tests/
+      shell: pwsh
