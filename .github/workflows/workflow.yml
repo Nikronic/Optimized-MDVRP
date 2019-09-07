@@ -14,10 +14,12 @@ jobs:
         python-version: '3.6'
         architecture: 'x64'
     - name: Install Dependencies
-      run: pip install -r requirements.txt
+      run: |
+        pip freeze > requirements.txt
+        pip install -r requirements.txt
       shell: pwsh
-    - name: GitHub Action for pytest
-      uses: cclauss/GitHub-Action-for-pytest@0.0.2
+#     - name: GitHub Action for pytest
+#       uses: cclauss/GitHub-Action-for-pytest@0.0.2
     - name: Run Pytest tests
       run: python pytest tests/
       shell: pwsh
