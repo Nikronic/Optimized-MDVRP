@@ -20,6 +20,4 @@ jobs:
       shell: pwsh
     - name: GitHub Action for pytest
       uses: cclauss/GitHub-Action-for-pytest@0.0.2
-    - name: Run Pytest tests
-      run: python -m pytest
-      shell: pwsh
+      args: pytest
