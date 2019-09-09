@@ -29,19 +29,30 @@ workflow "Build and Test" {
   ]
 }
 
-action "Build" {
-  uses = "jefftriplett/python-actions@master"
-  args = "pip install -r requirements.txt"
+# action "Build" {
+#   uses = "jefftriplett/python-actions@master"
+#   args = "pip install -r requirements.txt"
+# }
+
+# action "Lint" {
+#   uses = "jefftriplett/python-actions@master"
+#   args = "black --check"
+#   needs = ["Build"]
+# }
+
+# action "Test" {
+#   uses = "jefftriplett/python-actions@master"
+#   args = "pytest"
+#   needs = ["Lint"]
+# }
+
+
+workflow "on push" {
+  on = "push"
+  resolves = ["GitHub Action for pytest"]
 }
 
-action "Lint" {
-  uses = "jefftriplett/python-actions@master"
-  args = "black --check"
-  needs = ["Build"]
-}
-
-action "Test" {
-  uses = "jefftriplett/python-actions@master"
-  args = "pytest"
-  needs = ["Lint"]
+action "GitHub Action for pytest" {
+  uses = "cclauss/GitHub-Action-for-pytest@master"
+  args = "pytest -h"
 }
