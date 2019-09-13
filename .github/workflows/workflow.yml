@@ -18,57 +18,9 @@ jobs:
         pip freeze > requirements.txt
         pip install -r requirements.txt
       shell: bash
-#     - name: GitHub Action for pytest
-#       uses: cclauss/GitHub-Action-for-pytest@0.0.2
-    - name: Create conda virtualenv
-      run: | 
-        echo "##vso[task.prependpath]$CONDA/bin"
-        conda create --yes --quiet --name myEnvironment
-      shell: bash
-    - name: Activate conda
-      run: | 
-#        source activate myEnvironment
-        conda install --yes --quiet --name myEnvironment numpy pytest matplotlib
-#        deactivate && source activate
-      shell: bash
     - name: Pytest
       run: | 
-        pytest
+        pip install pytest
+        pip install pytest-cov
+        pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       shell: bash
-    
-      
-
-# workflow "Build and Test" {
-#   on = "push"
-#   resolves = [
-#     "Test",
-#   ]
-# }
-
-# action "Build" {
-#   uses = "jefftriplett/python-actions@master"
-#   args = "pip install -r requirements.txt"
-# }
-
-# action "Lint" {
-#   uses = "jefftriplett/python-actions@master"
-#   args = "black --check"
-#   needs = ["Build"]
-# }
-
-# action "Test" {
-#   uses = "jefftriplett/python-actions@master"
-#   args = "pytest"
-#   needs = ["Lint"]
-# }
-
-
-# workflow "on push" {
-#   on = "push"
-#   resolves = ["GitHub Action for pytest"]
-# }
-
-# action "GitHub Action for pytest" {
-#   uses = "cclauss/GitHub-Action-for-pytest@master"
-#   args = "pytest -h"
-# }
