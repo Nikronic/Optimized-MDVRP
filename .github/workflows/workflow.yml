@@ -29,6 +29,12 @@ jobs:
         ls
       shell: bash
     
+    - name: ls2
+      run: | 
+        cd ..
+        ls
+      shell: bash
+    
     - name: pytest
       run: | 
         echo Python sucks!!!
