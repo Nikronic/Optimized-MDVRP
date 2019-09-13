@@ -27,11 +27,10 @@ jobs:
     - name: ls
       run: | 
         ls
-        pip install pytest
       shell: bash
     
     - name: pytest
       run: | 
         echo Python sucks!!!
-        pip install pytest
+        pytest
       shell: bash
