@@ -18,10 +18,20 @@ jobs:
         pip freeze > requirements.txt
         pip install -r requirements.txt
       shell: bash
-    - name: Pytest
+    - name: pwd
       run: | 
         pwd
         pip install pytest
-        pip install pytest-cov
-        pytest
+      shell: bash
+    
+    - name: ls
+      run: | 
+        ls
+        pip install pytest
+      shell: bash
+    
+    - name: pytest
+      run: | 
+        echo Python sucks!!!
+        pip install pytest
       shell: bash
