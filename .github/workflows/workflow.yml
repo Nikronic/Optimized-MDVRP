@@ -22,10 +22,12 @@ jobs:
       uses: cclauss/GitHub-Action-for-pytest@0.0.2
     - name: Run Pytest
       run: | 
-        source activate
-        pip install pytest
+        echo "##vso[task.prependpath]$CONDA/bin"
+        conda create --yes --quiet --name myEnvironment
+        source activate myEnvironment
+        conda install --yes --quiet --name myEnvironment numpy pytest matplotlib
         deactivate && source activate
-        python -m pytest
+        pytest
       shell: bash
 
 # workflow "Build and Test" {
