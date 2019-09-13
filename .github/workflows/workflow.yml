@@ -27,9 +27,9 @@ jobs:
       shell: bash
     - name: Activate conda
       run: | 
-        source activate myEnvironment
+#        source activate myEnvironment
         conda install --yes --quiet --name myEnvironment numpy pytest matplotlib
-        deactivate && source activate
+#        deactivate && source activate
       shell: bash
     - name: Pytest
       run: | 
