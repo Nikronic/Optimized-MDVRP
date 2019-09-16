@@ -4,6 +4,7 @@ from copy import deepcopy
 
 from utils.customer import Customer
 
+
 class Depot:
     """
     Depot class represents a list of nodes assigned to this depot which we call a route.
@@ -25,7 +26,7 @@ class Depot:
         self.id = id
         self.x = x
         self.y = y
-        self.capacity = capacity 
+        self.capacity = capacity
         self.depot_customers = depot_customers
         self.size = len(depot_customers)
 
@@ -123,4 +124,3 @@ class Depot:
             print('Members: ')
             for c in self.depot_customers:
                 c.describe()
-

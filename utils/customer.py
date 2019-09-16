@@ -26,4 +26,3 @@ class Customer:
     def describe(self):
         print('ID:{}, coordinate=[{}, {}], cost={}, separator={}'.format(
             self.id, self.x, self.y, self.cost, self.null))
-
