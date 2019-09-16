@@ -63,7 +63,25 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
     # __len__
     assert supply_depot.__len__() == supply_depot.depot_customers.__len__()
 
-    
+    # __contains__
+    assert supply_depot.__contains__(supply_customer) == True
+
+    # __index__
+    assert supply_depot.__index__(supply_customer) == supply_depot.__len__()-1
+
+    # __remove__
+    supply_depot.__remove__(supply_customer)
+    assert supply_depot.__len__() == l
+
+    # __removeat__
+    supply_depot.__remmoveat__(0)
+    assert supply_depot.__len__() == l-1
+    assert supply_depot.__remmoveat__(10) == False
+
+    # __clear__ , put it in as the last test
+    supply_depot.__clear__()
+    assert supply_depot.__len__() == 0
+
 
 
 
