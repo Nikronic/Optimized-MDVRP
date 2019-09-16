@@ -11,11 +11,11 @@ class Depot:
     This class is going to be filled by `Customers` class.
     """
 
-    def __init__(self, id, x, y, capacity, depot_customers: List[Customer]) -> List[Customer]:
+    def __init__(self, id, x, y, capacity, depot_customers: List[Customer]=None):
         """
         :param id: ID assigned to node for tracking
-        :param x: X coordinate of customer
-        :param y: Y coordinate of customer
+        :param x: X coordinate of depot
+        :param y: Y coordinate of depot
         :param capacity: The maximum capacity of the Depot
         (in this project, it is filled by 'weight' of `Customers`. In other words, it indicates vehicles weight limit)
         :param depot_customers: A list of `Customer`s
@@ -28,7 +28,7 @@ class Depot:
         self.y = y
         self.capacity = capacity
         self.depot_customers = depot_customers
-        self.size = len(depot_customers)
+        self.size = self.depot_customers.__len__()
 
     def __getall__(self) -> List[Customer]:
         """

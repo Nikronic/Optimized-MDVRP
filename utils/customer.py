@@ -8,11 +8,11 @@ class Customer:
         """
 
         :param id: ID assigned to node for tracking
-        :param x: X coordinate of customer
-        :param y: Y coordinate of customer
-        :param cost: The cost of servicing each customer
+        :param x: X coordinate of depot
+        :param y: Y coordinate of depot
+        :param cost: The cost of servicing each depot
         (in this project, it is 'weight' because vehicles have weight limit)
-        :param null: True if the customer is fake and used to split the list of customers as a route in each depot.
+        :param null: True if the depot is fake and used to split the list of customers as a route in each depot.
 
         :return:
         """
