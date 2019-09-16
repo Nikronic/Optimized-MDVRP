@@ -47,3 +47,23 @@ def test_depot_init(supply_depot):
     assert supply_depot.x == 20
     assert supply_depot.depot_customers[0].x > -1
     assert supply_depot.depot_customers[0].cost > -1
+
+
+def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
+    # __getall__
+    assert supply_depot.__getall__().__len__() == supply_depot.depot_customers.__len__()
+
+    # __add__
+    l = supply_depot.__len__()
+    supply_depot.__add__(supply_customer)
+    assert supply_depot.__len__() == l+1
+
+    assert supply_depot.depot_customers[supply_depot.depot_customers.__len__()-1].cost == supply_customer.cost
+
+    # __len__
+    assert supply_depot.__len__() == supply_depot.depot_customers.__len__()
+
+    
+
+
+
