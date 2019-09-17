@@ -106,7 +106,7 @@ class Chromosome:
             return True
         return False
 
-    def __remmoveat__(self, index: int) -> bool:
+    def __removeat__(self, index: int) -> bool:
         """
         Remove a `Depot` at defined `index` from `Chromosome`
         :param index: an int number
