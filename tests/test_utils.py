@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+from scipy.spatial import distance
 
 from utils.customer import Customer
 from utils.depot import Depot
@@ -25,7 +26,7 @@ def supply_customer_batch():
         x = np.random.randint(0, 100)
         y = np.random.randint(0, 100)
         w = np.random.randint(0, 100)
-        s = np.random.randint(0, 100) > 50
+        s = False
         cb.append(Customer(id, x, y, w, s))
     return cb
 
@@ -40,7 +41,7 @@ def supply_depot(supply_customer_batch):
     id = 0
     x = 20
     y = 30
-    c = 500
+    c = 300
     dc = supply_customer_batch
     return Depot(id, x, y, c, dc)
 
@@ -163,9 +164,27 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
 
 
 def test_euclidean_distance(supply_customer: Customer, supply_depot: Depot):
-    from scipy.spatial import distance
     assert F.euclidean_distance(supply_customer, supply_depot) == distance.euclidean(
         [supply_customer.x, supply_customer.y], [supply_depot.x, supply_depot.y])
 
     assert F.euclidean_distance(supply_customer, supply_customer) == distance.euclidean(
         [supply_customer.x, supply_customer.y], [supply_customer.x, supply_customer.y])
+
+
+@pytest.fixture
+def supply_separator():
+    id = 0
+    x = 0
+    y = 0
+    c = 0
+    return Customer(id, x, y, c, null=True)
+
+
+def test_initial_routing(supply_depot: Depot):
+    l: int = supply_depot.__len__()
+    F.initial_routing(supply_depot)
+    assert supply_depot.__len__() >= l+1
+    assert supply_depot[supply_depot.__len__()-1].null == True
+    if supply_depot.__len__() >= l+2:
+        assert np.sum([c.cost for c in supply_depot]) >= supply_depot.capacity
+
