@@ -11,7 +11,7 @@ class Chromosome:
     The outer scope List is `Depot`s and the inner scope List is a List of `Customer` for each `Depot`
     """
 
-    def __init__(self, id: int, depots: int, capacity: float, fitness: float = -1, chromosome: List[Depot] = None):
+    def __init__(self, id: int, depots: int, capacity: float, fitness: float = -1, chromosome=None):
         """
         A empty chromosome regarding provided number of `Depot`s and capacity.
         :param id: Unique int ID for demonstration purposes
@@ -19,14 +19,12 @@ class Chromosome:
         :param capacity: The capacity of the `Depot`s which is same for all `Depot`s in a `Chromosome`
         :param chromosome: The content of the chromosome which a List of `Depot`s
         """
+        if chromosome is None:
+            chromosome = []
         self.id = id
         self.depots = depots
         self.capacity = capacity
         self.chromosome = chromosome
-
-        for i in range(depots):
-            self.chromosome.append(Depot(i, 0, 0, capacity))
-
         self.size = self.chromosome.__len__()
         self.fitness = fitness
 

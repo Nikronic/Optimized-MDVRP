@@ -11,7 +11,7 @@ class Depot:
     This class is going to be filled by `Customers` class.
     """
 
-    def __init__(self, id, x, y, capacity, depot_customers: List[Customer]=None):
+    def __init__(self, id, x, y, capacity, depot_customers: List[Customer]=[]):
         """
         :param id: ID assigned to node for tracking
         :param x: X coordinate of depot
