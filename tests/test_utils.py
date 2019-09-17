@@ -1,7 +1,9 @@
 import pytest
 import numpy as np
+
 from utils.customer import Customer
 from utils.depot import Depot
+from chromosome import Chromosome
 
 
 @pytest.fixture
@@ -81,3 +83,25 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
     # __clear__ , put it in as the last test
     supply_depot.__clear__()
     assert supply_depot.__len__() == 0
+
+
+@pytest.fixture
+def supply_depot_batch(supply_customer_batch):
+    db = []
+    for i in range(np.random.randint(2, 10)):
+        id = np.random.randint(0, 100)
+        x = np.random.randint(0, 100)
+        y = np.random.randint(0, 100)
+        c = np.random.randint(0, 100)
+        db.append(Depot(id, x, y, c, supply_customer_batch))
+    return db
+
+
+@pytest.fixture
+def supply_chromosome(supply_depot):
+    id = 0
+    depots = 5
+    capacity = 500
+    chromosome = supply_depot_batch
+    return Chromosome(id, depots, capacity, chromosome)
+
