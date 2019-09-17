@@ -56,7 +56,7 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
     assert supply_depot.__getall__().__len__() == supply_depot.depot_customers.__len__()
 
     # __add__
-    l = supply_depot.__len__()
+    l: int = supply_depot.__len__()
     supply_depot.__add__(supply_customer)
     assert supply_depot.__len__() == l + 1
 
@@ -80,7 +80,7 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
     assert supply_depot.__len__() == l - 1
     assert supply_depot.__remmoveat__(10) == False
 
-    # __clear__ , put it in as the last test
+    # __clear__ , put it at the end of file
     supply_depot.__clear__()
     assert supply_depot.__len__() == 0
 
@@ -111,3 +111,45 @@ def test_chromosome_init(supply_chromosome: Chromosome):
     assert supply_chromosome.chromosome.__len__() == supply_chromosome.depots
     assert supply_chromosome.capacity == 500
     assert supply_chromosome.fitness == -1
+
+
+def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot):
+    # __fitness__
+    assert supply_chromosome.__fitness__() == supply_chromosome.fitness
+    assert supply_chromosome.__fitness__() == -1
+
+    # __getall__
+    assert supply_chromosome.__getall__().__len__() == supply_chromosome.chromosome.__len__()
+
+    # __add__
+    l: int = supply_chromosome.__len__()
+    supply_chromosome.__add__(supply_depot)
+    assert supply_chromosome.__len__() == l + 1
+
+    assert supply_chromosome.chromosome[supply_chromosome.chromosome.__len__() - 1].capacity == supply_depot.capacity
+
+    # __len__
+    assert supply_chromosome.__len__() == supply_chromosome.chromosome.__len__()
+
+    # __contains__
+    assert supply_chromosome.__contains__(supply_depot) == True
+
+    # __index__
+    assert supply_chromosome.__index__(supply_depot) == supply_chromosome.__len__()-1
+
+    # __remove__
+    supply_chromosome.__remove__(supply_depot)
+    assert supply_chromosome.__len__() ==l
+
+    # __removeat__
+    supply_chromosome.__removeat__(0)
+    assert supply_chromosome.__len__() == l-1
+    assert supply_chromosome.__removeat__(10) == False
+
+    # __clear__ , put it at the end of file before __insert__
+    supply_chromosome.__clear__()
+    assert supply_chromosome.__len__() ==0
+
+    # __insert__
+    supply_chromosome.__insert__(0, supply_depot)
+    assert supply_chromosome.__len__() == 1
