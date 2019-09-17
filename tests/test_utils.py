@@ -98,7 +98,7 @@ def supply_depot_batch(supply_customer_batch):
 
 
 @pytest.fixture
-def supply_chromosome(supply_depot):
+def supply_chromosome(supply_depot_batch):
     id = 0
     depots = 5
     capacity = 500
