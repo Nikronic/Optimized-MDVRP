@@ -1,5 +1,7 @@
 # Optimized-MDVRP
 "Using Genetic Algorithms for Multi-depot Vehicle Routing" paper implementation.
+[![Actions Status](https://github.com/Nikronic/Optimized-MDVRP/workflows/workflow.yml/badge.svg)](https://github.com
+/Nikronic/Optimized-MDVRP/actions)
 
 ![](https://github.com/Nikronic/Optimized-MDVRP/workflows/workflow.yml/badge.svg)
 
