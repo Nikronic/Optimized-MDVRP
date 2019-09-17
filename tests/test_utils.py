@@ -135,20 +135,20 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
     assert supply_chromosome.__contains__(supply_depot) == True
 
     # __index__
-    assert supply_chromosome.__index__(supply_depot) == supply_chromosome.__len__()-1
+    assert supply_chromosome.__index__(supply_depot) == supply_chromosome.__len__() - 1
 
     # __remove__
     supply_chromosome.__remove__(supply_depot)
-    assert supply_chromosome.__len__() ==l
+    assert supply_chromosome.__len__() == l
 
     # __removeat__
     supply_chromosome.__removeat__(0)
-    assert supply_chromosome.__len__() == l-1
+    assert supply_chromosome.__len__() == l - 1
     assert supply_chromosome.__removeat__(10) == False
 
     # __clear__ , put it at the end of file before __insert__
     supply_chromosome.__clear__()
-    assert supply_chromosome.__len__() ==0
+    assert supply_chromosome.__len__() == 0
 
     # __insert__
     supply_chromosome.__insert__(0, supply_depot)
