@@ -4,6 +4,7 @@ import numpy as np
 from utils.customer import Customer
 from utils.depot import Depot
 from chromosome import Chromosome
+from utils import functional as F
 
 
 @pytest.fixture
@@ -159,3 +160,12 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
     # __insert__
     supply_chromosome.__insert__(0, supply_depot)
     assert supply_chromosome.__len__() == 1
+
+
+def test_euclidean_distance(supply_customer: Customer, supply_depot: Depot):
+    from scipy.spatial import distance
+    assert F.euclidean_distance(supply_customer, supply_depot) == distance.euclidean(
+        [supply_customer.x, supply_customer.y], [supply_depot.x, supply_depot.y])
+
+    assert F.euclidean_distance(supply_customer, supply_customer) == distance.euclidean(
+        [supply_customer.x, supply_customer.y], [supply_customer.x, supply_customer.y])
