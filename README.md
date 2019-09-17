@@ -1,6 +1,7 @@
 # Optimized-MDVRP
 "Using Genetic Algorithms for Multi-depot Vehicle Routing" paper implementation.
 
+![](https://github.com/Nikronic/Optimized-MDVRP/workflows/workflow.yml/badge.svg)
 
 **MDVRP** is a **multi-objective optimization** task that the goal is to assign a number of vehicles which are distributed in multi depots in search to the customers meanwhile **minimizing** the number of car used and distance traveled regarding some **constraints** such as vehicle weight threshold.
 
