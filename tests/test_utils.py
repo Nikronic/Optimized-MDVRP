@@ -105,3 +105,11 @@ def supply_chromosome(supply_depot):
     chromosome = supply_depot_batch
     return Chromosome(id, depots, capacity, chromosome)
 
+
+def test_chromosome_init(supply_chromosome: Chromosome):
+    assert supply_chromosome.id == 0
+    assert supply_chromosome.chromosome.__len__() == supply_chromosome.depots
+    assert supply_chromosome.chromosome.__len__() == 5
+    assert supply_chromosome.capacity == 500
+    assert supply_chromosome.fitness == -1
+
