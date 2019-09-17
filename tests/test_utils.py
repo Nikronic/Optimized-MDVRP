@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 from scipy.spatial import distance
+import math
 
 from utils.customer import Customer
 from utils.depot import Depot
@@ -188,3 +189,10 @@ def test_initial_routing(supply_depot: Depot):
     if supply_depot.__len__() >= l+2:
         assert np.sum([c.cost for c in supply_depot]) >= supply_depot.capacity
 
+
+def test_randomize_customers(supply_depot):
+    l: int = supply_depot.__len__()
+    c = supply_depot[math.ceil(supply_depot.__len__()/2)]
+    F.randomize_customers(supply_depot)
+    assert supply_depot.__len__() == l
+    assert supply_depot.__contains__(c) == True

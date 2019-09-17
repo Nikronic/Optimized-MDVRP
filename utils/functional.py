@@ -3,6 +3,7 @@ from utils.depot import Depot
 from chromosome import Chromosome
 
 import math
+import random
 
 
 def euclidean_distance(source: Customer, target) -> float:
@@ -34,4 +35,14 @@ def initial_routing(depot: Depot) -> None:
         accumulated_weight += depot[i].cost
     depot.__add__(separator)
 
+
+# aliased in C# as "RandomList"
+def randomize_customers(depot: Depot) -> None:
+    """
+    Randomizes all customers in a `Depot` a.k.a shuffling.
+    We use this method to build initial population using random `Chromosome`s.
+    :param depot: An instance of `Depot` class
+    :return: None
+    """
+    random.shuffle(depot.depot_customers)
 
