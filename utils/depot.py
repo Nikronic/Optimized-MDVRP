@@ -112,6 +112,14 @@ class Depot:
             return True
         return False
 
+    def __getitem__(self, index: int):
+        """
+        Makes the class itself subscribable
+        :param index: The index to List
+        :return: A `Customer` class from List of `Customer`s.
+        """
+        return self.depot_customers[index]
+
     def describe(self, print_members=False):
         """
         Print the specifics of the `Depot`

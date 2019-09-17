@@ -52,6 +52,9 @@ def test_depot_init(supply_depot):
 
 
 def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
+    # __getitem__ , tests subscribable class
+    assert supply_depot[0] == supply_depot.depot_customers[0]
+
     # __getall__
     assert supply_depot.__getall__().__len__() == supply_depot.depot_customers.__len__()
 
@@ -114,6 +117,9 @@ def test_chromosome_init(supply_chromosome: Chromosome):
 
 
 def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot):
+    # __getitem__ , tests subscribable class
+    assert supply_chromosome[0] == supply_chromosome.chromosome[0]
+
     # __fitness__
     assert supply_chromosome.__fitness__() == supply_chromosome.fitness
     assert supply_chromosome.__fitness__() == -1

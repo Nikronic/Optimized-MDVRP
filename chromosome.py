@@ -117,6 +117,14 @@ class Chromosome:
             return True
         return False
 
+    def __getitem__(self, index: int):
+        """
+        Makes the class itself subscribable
+        :param index: The index to List
+        :return: A `Depot` class from List of `Depot`s.
+        """
+        return self.chromosome[index]
+
     def describe(self, print_members=False):
         """
         Print the specifics of the `Chromosome`
