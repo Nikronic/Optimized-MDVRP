@@ -58,4 +58,4 @@ def clone(chromosome: Chromosome) -> Chromosome:
     return deepcopy(chromosome)
 
 
-def tournament_population(population: Population) -> Population:
+# def tournament_population(population: Population) -> Population:

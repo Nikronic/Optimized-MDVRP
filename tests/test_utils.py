@@ -3,6 +3,7 @@ import numpy as np
 from scipy.spatial import distance
 import math
 
+from population import Population
 from utils.customer import Customer
 from utils.depot import Depot
 from chromosome import Chromosome
@@ -206,3 +207,24 @@ def test_clone(supply_chromosome):
     assert cloned.capacity == supply_chromosome.capacity
 
 
+@pytest.fixture
+def supply_chromosome_batch(supply_depot_batch):
+    chb = []
+    for i in range(np.random.randint(2, 10)):
+        id = np.random.randint(0, 100)
+        d = np.random.randint(0, 10)
+        c = np.random.randint(0, 100)
+        f = np.random.randint(0, 100)
+        chb.append(Chromosome(id, d, c, f, supply_depot_batch))
+    return chb
+
+
+@pytest.fixture
+def supply_population(supply_chromosome_batch):
+    id = 0
+    return Population(id, supply_chromosome_batch)
+
+
+def test_population_init(supply_population: Population):
+    assert supply_population.id == 0
+    assert supply_population.chromosomes.__len__() == supply_population.size
