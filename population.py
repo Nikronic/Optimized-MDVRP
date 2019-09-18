@@ -102,7 +102,7 @@ class Population:
             return True
         return False
 
-    def __getitem__(self, index: int):
+    def __getitem__(self, index: int) -> Chromosome:
         """
         Makes the class itself subscribable
         :param index: The index to List

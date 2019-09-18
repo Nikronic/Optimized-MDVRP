@@ -52,7 +52,7 @@ class Depot:
         """
         self.depot_customers.clear()
 
-    def __len__(self):
+    def __len__(self) -> int:
         """
         Return the number of `Customer`s in the `Depot`
         :return: int depot size
