@@ -196,3 +196,13 @@ def test_randomize_customers(supply_depot):
     F.randomize_customers(supply_depot)
     assert supply_depot.__len__() == l
     assert supply_depot.__contains__(c) == True
+
+
+def test_clone(supply_chromosome):
+    cloned = F.clone(supply_chromosome)
+    assert cloned != supply_chromosome
+    assert cloned.__len__() == supply_chromosome.__len__()
+    assert cloned.id == supply_chromosome.id
+    assert cloned.capacity == supply_chromosome.capacity
+
+

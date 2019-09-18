@@ -4,6 +4,7 @@ from chromosome import Chromosome
 
 import math
 import random
+from copy import deepcopy
 
 
 def euclidean_distance(source: Customer, target) -> float:
@@ -46,3 +47,15 @@ def randomize_customers(depot: Depot) -> None:
     """
     random.shuffle(depot.depot_customers)
 
+
+def clone(chromosome: Chromosome) -> Chromosome:
+    """
+    Clones a Chromosome with all same characteristics
+    :param chromosome: An instance of `Chromosome` class to be cloned
+    :return: A cloned `Chromosome`
+    """
+
+    return deepcopy(chromosome)
+
+
+def tournament_population(population: Population) -> Population:
