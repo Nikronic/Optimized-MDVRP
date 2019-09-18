@@ -225,6 +225,42 @@ def supply_population(supply_chromosome_batch):
     return Population(id, supply_chromosome_batch)
 
 
-def test_population_init(supply_population: Population):
+def test_population_init(supply_population: Population, supply_chromosome: Chromosome):
     assert supply_population.id == 0
     assert supply_population.chromosomes.__len__() == supply_population.size
+
+
+def test_population_functions(supply_population, ):
+    # __getall__
+    assert supply_population.__getall__().__len__() == supply_population.chromosomes.__len__()
+
+    # __add__
+    l: int = supply_population.__len__()
+    supply_population.__add__(supply_chromosome)
+    assert supply_population.__len__() == l + 1
+
+    # __len__
+    assert supply_population.__len__() == supply_population.chromosomes.__len__()
+
+    # __contains__
+    assert supply_population.__contains__(supply_chromosome) == True
+
+    # __index__
+    assert supply_population.__index__(supply_chromosome) == supply_population.__len__() - 1
+
+    # __remove__
+    supply_population.__remove__(supply_chromosome)
+    assert supply_population.__len__() == l
+
+    # __removeat__
+    supply_population.__removeat__(0)
+    assert supply_population.__len__() == l - 1
+    assert supply_population.__removeat__(10) == False
+
+    # __clear__ , put it at the end of file before __insert__
+    supply_population.__clear__()
+    assert supply_population.__len__() == 0
+
+    # __insert__
+    supply_population.__insert__(0, supply_chromosome)
+    assert supply_population.__len__() == 1
