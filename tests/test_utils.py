@@ -278,3 +278,16 @@ def test_fittest_chromosome(supply_population):
     assert supply_population.__contains__(fittest) == True
     for c in supply_population:
         assert fittest.__fitness__() >= c.__fitness__()
+
+
+def test_tournament(supply_population):
+    parents = F.tournament(supply_population)
+    assert parents.__len__() == 2
+    assert supply_population.__contains__(parents[0]) == True
+    assert supply_population.__contains__(parents[1]) == True
+
+    parents = F.tournament(supply_population, 0.0)  # force to use random parents not fittest ('else' condition)
+    assert parents.__len__() == 2
+    assert supply_population.__contains__(parents[0]) == True
+    assert supply_population.__contains__(parents[1]) == True
+

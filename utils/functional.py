@@ -83,3 +83,32 @@ def fittest_chromosome(population: Population) -> Chromosome:
 
     return max(population, key=lambda chromosome: chromosome.__fitness__())
 
+
+def tournament(population: Population, tournament_probability: float = 0.8, size: int = 2) -> Population:
+    """
+    Selects TWO parents to send them to `crossover` step based on `tournament` approach.
+
+    Tournament approach:
+    1. Select a random unique sample from the population
+    2. Draw a random number; if it is below `tournament_probability` hyper-parameter do 3, else do 5
+    3. Select another random unique sample from the population
+    4. Find fittest chromosomes from each sampled populations and return them as new population.
+    5. Randomly choose two chromosomes and return them as a new population.
+    :param population: An instance of `Population` class
+    :param tournament_probability: The probability of using fittest or random sample (=0.8)
+    :param size: The size of population to be sampled. By default, we use Binary tournament (size = 2).
+    :return: A `Population` with size of `size`
+    """
+
+    first_sample = extract_population(population, size)
+    if random.random() <= tournament_probability:
+        second_sample = extract_population(population, size)
+        first_fittest = fittest_chromosome(first_sample)
+        second_fittest = fittest_chromosome(second_sample)
+        return Population(0, [first_fittest, second_fittest])
+    else:
+        indices = random.sample(range(0, first_sample.__len__()), 2)
+        return Population(0, [first_sample[indices[0]], first_sample[indices[1]]])
+
+
+
