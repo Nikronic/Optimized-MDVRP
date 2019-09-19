@@ -1,3 +1,4 @@
+from population import Population
 from utils.customer import Customer
 from utils.depot import Depot
 from chromosome import Chromosome
@@ -58,4 +59,17 @@ def clone(chromosome: Chromosome) -> Chromosome:
     return deepcopy(chromosome)
 
 
-# def tournament_population(population: Population) -> Population:
+# aka TournamentPopulation
+def extract_population(population: Population, size: int) -> Population:
+    """
+    Creates a shallow `Population` object with the size of `Size`.
+    :param population: An instance of `Population` class
+    :param size: The result `Population` size.
+    :return: A `Population` class
+    """
+    indices = random.sample(range(0, population.__len__()-1), size)
+    new_population = Population(id=0)
+    for i in indices:
+        new_population.__add__(population[i])
+    return new_population
+

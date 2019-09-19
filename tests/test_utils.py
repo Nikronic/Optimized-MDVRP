@@ -264,3 +264,10 @@ def test_population_functions(supply_population, ):
     # __insert__
     supply_population.__insert__(0, supply_chromosome)
     assert supply_population.__len__() == 1
+
+
+def test_extract_population(supply_population):
+    extracted = F.extract_population(supply_population, 2)
+    assert extracted.__len__() == 2
+    assert supply_population.__contains__(extracted[0]) == True
+    assert supply_population.__contains__(extracted[1]) == True
