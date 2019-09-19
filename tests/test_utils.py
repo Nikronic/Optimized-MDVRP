@@ -271,3 +271,10 @@ def test_extract_population(supply_population):
     assert extracted.__len__() == 2
     assert supply_population.__contains__(extracted[0]) == True
     assert supply_population.__contains__(extracted[1]) == True
+
+
+def test_fittest_chromosome(supply_population):
+    fittest: Chromosome = F.fittest_chromosome(supply_population)
+    assert supply_population.__contains__(fittest) == True
+    for c in supply_population:
+        assert fittest.__fitness__() >= c.__fitness__()

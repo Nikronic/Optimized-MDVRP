@@ -73,3 +73,13 @@ def extract_population(population: Population, size: int) -> Population:
         new_population.__add__(population[i])
     return new_population
 
+
+def fittest_chromosome(population: Population) -> Chromosome:
+    """
+    Returns the `Chromosome` with maximum `fitness` within whole `Population`
+    :param population: An instance of `Population` class
+    :return: A single `Chromosome`
+    """
+
+    return max(population, key=lambda chromosome: chromosome.__fitness__())
+
