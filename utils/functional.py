@@ -67,7 +67,7 @@ def extract_population(population: Population, size: int) -> Population:
     :param size: The result `Population` size.
     :return: A `Population` class
     """
-    indices = random.sample(range(0, population.__len__()-1), size)
+    indices = random.sample(range(0, population.__len__()), size)
     new_population = Population(id=0)
     for i in indices:
         new_population.__add__(population[i])
