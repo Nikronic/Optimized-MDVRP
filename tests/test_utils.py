@@ -291,3 +291,17 @@ def test_tournament(supply_population):
     assert supply_population.__contains__(parents[0]) == True
     assert supply_population.__contains__(parents[1]) == True
 
+
+def test_routes_ending_indices_attr(supply_depot: Depot):
+    F.initial_routing(supply_depot)
+    for i in supply_depot.routes_ending_indices:
+        assert supply_depot[i].null == True
+    indices = []
+    for i, c in enumerate(supply_depot):
+        if c.null:
+            indices.append(i)
+
+    assert sorted(indices) == sorted(supply_depot.routes_ending_indices)
+
+
+

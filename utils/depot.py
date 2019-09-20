@@ -11,7 +11,7 @@ class Depot:
     This class is going to be filled by `Customers` class.
     """
 
-    def __init__(self, id, x, y, capacity, depot_customers: List[Customer]=[]):
+    def __init__(self, id, x, y, capacity, depot_customers: List[Customer] = None):
         """
         :param id: ID assigned to node for tracking
         :param x: X coordinate of depot
@@ -22,12 +22,14 @@ class Depot:
 
         :return: A list of `Customers` assigned to this depot
         """
-
+        if depot_customers is None:
+            depot_customers = []
         self.id = id
         self.x = x
         self.y = y
         self.capacity = capacity
         self.depot_customers = depot_customers
+        self.routes_ending_indices = []
         self.size = self.depot_customers.__len__()
 
     def __getall__(self) -> List[Customer]:
@@ -43,6 +45,9 @@ class Depot:
         :param customer: Customer class instance
         :return: None
         """
+        if customer.null == True:
+            self.routes_ending_indices.insert(self.routes_ending_indices.__len__()-1, self.__len__())
+
         self.depot_customers.append(customer)
 
     def __clear__(self):
@@ -50,6 +55,7 @@ class Depot:
         Clear the `Depot` from `Customer`s
         :return: None
         """
+        self.routes_ending_indices = []
         self.depot_customers.clear()
 
     def __len__(self) -> int:
@@ -88,6 +94,9 @@ class Depot:
         :param customer: A `Customer` class instance
         :return: None
         """
+        if customer.null == True:
+            self.routes_ending_indices.insert(self.routes_ending_indices.__len__()-1, index)
+
         return self.depot_customers.insert(index, customer)
 
     def __remove__(self, customer: Customer) -> bool:
@@ -97,6 +106,8 @@ class Depot:
         :return: bool, if `Customer` does not exist returns False, else True
         """
         if self.__contains__(customer):
+            if customer.null == True:
+                self.routes_ending_indices.remove(self.__index__(customer))
             self.depot_customers.remove(customer)
             return True
         return False
@@ -108,6 +119,8 @@ class Depot:
         :return: bool, if `Customer` does not exist returns False, else True
         """
         if index <= self.__len__():
+            if self.depot_customers[index].null == True:
+                self.routes_ending_indices.remove(index)
             self.depot_customers.remove(self.depot_customers[index])
             return True
         return False
