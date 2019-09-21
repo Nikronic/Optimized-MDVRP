@@ -107,15 +107,14 @@ def supply_depot_batch(supply_customer_batch):
 @pytest.fixture
 def supply_chromosome(supply_depot_batch):
     id = 0
-    depots = supply_depot_batch.__len__()
     capacity = 500
     chromosome = supply_depot_batch
-    return Chromosome(id, depots, capacity, chromosome=chromosome)
+    return Chromosome(id, capacity, chromosome=chromosome)
 
 
 def test_chromosome_init(supply_chromosome: Chromosome):
     assert supply_chromosome.id == 0
-    assert supply_chromosome.chromosome.__len__() == supply_chromosome.depots
+    assert supply_chromosome.chromosome.__len__() == supply_chromosome.size
     assert supply_chromosome.capacity == 500
     assert supply_chromosome.fitness == -1
 
@@ -215,7 +214,7 @@ def supply_chromosome_batch(supply_depot_batch):
         d = np.random.randint(0, 10)
         c = np.random.randint(0, 100)
         f = np.random.randint(0, 100)
-        chb.append(Chromosome(id, d, c, f, supply_depot_batch))
+        chb.append(Chromosome(id, c, f, supply_depot_batch))
     return chb
 
 
