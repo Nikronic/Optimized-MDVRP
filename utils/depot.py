@@ -32,6 +32,14 @@ class Depot:
         self.routes_ending_indices = []
         self.size = self.depot_customers.__len__()
 
+    def __route_ending_index__(self) -> List[int]:
+        """
+        Sorts then returns the list of indices corresponding to the the index of null customer representing the end
+        of a route in a `Depot`.
+        :return: A sorted list of ints indices
+        """
+        return sorted(self.routes_ending_indices)
+
     def __getall__(self) -> List[Customer]:
         """
         Returns all `Customer`s as a list independently using deep copy
