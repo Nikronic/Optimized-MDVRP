@@ -42,7 +42,7 @@ class Depot:
         of a route in a `Depot`.
         :return: A sorted list of ints indices
         """
-        return sorted(self.routes_ending_indices)
+        return sorted(set(self.routes_ending_indices))
 
     def __getall__(self) -> List[Customer]:
         """

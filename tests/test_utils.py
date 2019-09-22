@@ -293,7 +293,7 @@ def test_tournament(supply_population):
 
 def test_routes_ending_indices_attr(supply_depot: Depot):
     F.initial_routing(supply_depot)
-    for i in supply_depot.routes_ending_indices:
+    for i in supply_depot.__route_ending_index__():
         assert supply_depot[i].null == True
     indices = []
     for i, c in enumerate(supply_depot):
