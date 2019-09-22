@@ -7,6 +7,8 @@ import math
 import random
 from copy import deepcopy
 
+from typing import List
+
 
 def euclidean_distance(source: Customer, target) -> float:
     """

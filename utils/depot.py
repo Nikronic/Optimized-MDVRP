@@ -30,6 +30,10 @@ class Depot:
         self.capacity = capacity
         self.depot_customers = depot_customers
         self.routes_ending_indices = []
+        if depot_customers is not None:
+            for i, c in enumerate(depot_customers):
+                if c.null:
+                    self.routes_ending_indices.append(i)
         self.size = self.depot_customers.__len__()
 
     def __route_ending_index__(self) -> List[int]:

@@ -28,7 +28,7 @@ def supply_customer_batch():
         x = np.random.randint(0, 100)
         y = np.random.randint(0, 100)
         w = np.random.randint(0, 100)
-        s = False
+        s = np.random.randint(0, 100) > 50
         cb.append(Customer(id, x, y, w, s))
     return cb
 
