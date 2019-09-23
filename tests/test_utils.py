@@ -28,7 +28,7 @@ def supply_customer_batch():
         x = np.random.randint(0, 100)
         y = np.random.randint(0, 100)
         w = np.random.randint(0, 100)
-        s = np.random.randint(0, 100) > 50
+        s = False
         cb.append(Customer(id, x, y, w, s))
     return cb
 
@@ -43,7 +43,7 @@ def supply_depot(supply_customer_batch):
     id = 0
     x = 20
     y = 30
-    c = 300
+    c = 200
     dc = supply_customer_batch
     return Depot(id, x, y, c, dc)
 
@@ -299,8 +299,9 @@ def test_routes_ending_indices_attr(supply_depot: Depot):
     for i, c in enumerate(supply_depot):
         if c.null:
             indices.append(i)
+    assert sorted(indices) == (supply_depot.__route_ending_index__())
 
-    assert sorted(indices) == sorted(supply_depot.routes_ending_indices)
 
-
+# def test_extract_random_route(supply_chromosome):
+#     route = F.extract_random_route(supply_chromosome)
 
