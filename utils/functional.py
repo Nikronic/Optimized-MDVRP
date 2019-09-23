@@ -30,14 +30,16 @@ def initial_routing(depot: Depot) -> None:
     :return: None
     """
     accumulated_weight = 0
-    separator = Customer(0, depot.x, depot.y, 0, null=True)
+    separator = Customer(9999, depot.x, depot.y, 0, True)
     for i in range(depot.__len__()):
         if accumulated_weight+depot[i].cost > depot.capacity:
             depot.__insert__(i, separator)
             accumulated_weight = 0
             i += 1
         accumulated_weight += depot[i].cost
-    depot.__add__(separator)
+    # depot.__add__(separator)
+    if not depot[-1].null:
+        depot.__add__(separator)
 
 
 # aliased in C# as "RandomList"
@@ -124,7 +126,7 @@ def extract_random_route(chromosome: Chromosome, delete=True) -> List[Customer]:
     rand_depot: Depot = chromosome[random.randint(0, chromosome.__len__())]
     if delete:
         pass
-    rand_route_idx = random.randint(0, rand_depot.routes_ending_indices.__len__()-1)
+    rand_route_idx = random.randint(0, rand_depot.__route_ending_index__().__len__()-1)
     rand_route_end_idx = rand_depot.__route_ending_index__()[rand_route_idx]
     if rand_route_idx == 0:
         rand_route_start_idx = 0
