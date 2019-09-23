@@ -113,4 +113,29 @@ def tournament(population: Population, tournament_probability: float = 0.8, size
         return Population(0, [first_sample[indices[0]], first_sample[indices[1]]])
 
 
+def extract_random_route(chromosome: Chromosome, delete=True) -> List[Customer]:
+    """
+    Extracts a random route within a random `Depot` in given `Chromosome`.
+    Note: A route defined is indicated by the `Customer`s between two `null` `Customer`s.
+    :param chromosome: A `Chromosome` to be searched for route
+    :param delete: Whether delete the extracted route from `Chromosome` or not.
+    :return: A List of `Customer`s
+    """
+    rand_depot: Depot = chromosome[random.randint(0, chromosome.__len__())]
+    if delete:
+        pass
+    rand_route_idx = random.randint(0, rand_depot.routes_ending_indices.__len__()-1)
+    rand_route_end_idx = rand_depot.__route_ending_index__()[rand_route_idx]
+    if rand_route_idx == 0:
+        rand_route_start_idx = 0
+        route = rand_depot[rand_route_start_idx: rand_route_end_idx]
+        for c in route:
+            rand_depot.__remove__(c)
+        return route
 
+    else:
+        rand_route_start_idx = rand_depot.__route_ending_index__()[rand_route_idx-1]
+    route = rand_depot[rand_route_start_idx+1: rand_route_end_idx]
+    for c in route:
+        rand_depot.__remove__(c)
+    return route
