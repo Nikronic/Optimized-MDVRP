@@ -130,7 +130,7 @@ class Chromosome:
         :return:
         """
         print('ID:{}, fitness={}, capacity={}, size={}'.format(
-            self.id, self.fitness, self.capacity, self.depots))
+            self.id, self.fitness, self.capacity, self.__len__()))
         if print_members:
             print('Members: ')
             for i, dpt in enumerate(self.chromosome):
