@@ -22,15 +22,17 @@ def supply_customer():
 
 @pytest.fixture
 def supply_customer_batch():
-    cb = []
-    for i in range(np.random.randint(2, 10)):
-        id = np.random.randint(0, 100)
-        x = np.random.randint(0, 100)
-        y = np.random.randint(0, 100)
-        w = np.random.randint(0, 100)
-        s = False
-        cb.append(Customer(id, x, y, w, s))
-    return cb
+    def call():
+        cb = []
+        for i in range(np.random.randint(2, 10)):
+            id = np.random.randint(0, 100)
+            x = np.random.randint(0, 100)
+            y = np.random.randint(0, 100)
+            w = np.random.randint(0, 100)
+            s = False
+            cb.append(Customer(id, x, y, w, s))
+        return cb
+    return call
 
 
 def test_customer(supply_customer):
@@ -44,7 +46,7 @@ def supply_depot(supply_customer_batch):
     x = 20
     y = 30
     c = 200
-    dc = supply_customer_batch
+    dc = supply_customer_batch()
     return Depot(id, x, y, c, dc)
 
 
@@ -94,21 +96,23 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
 
 @pytest.fixture
 def supply_depot_batch(supply_customer_batch):
-    db = []
-    for i in range(np.random.randint(2, 10)):
-        id = np.random.randint(0, 100)
-        x = np.random.randint(0, 100)
-        y = np.random.randint(0, 100)
-        c = np.random.randint(0, 100)
-        db.append(Depot(id, x, y, c, supply_customer_batch))
-    return db
+    def call():
+        db = []
+        for i in range(np.random.randint(2, 10)):
+            id = np.random.randint(0, 100)
+            x = np.random.randint(0, 100)
+            y = np.random.randint(0, 100)
+            c = np.random.randint(0, 100)
+            db.append(Depot(id, x, y, c, supply_customer_batch()))
+        return db
+    return call
 
 
 @pytest.fixture
 def supply_chromosome(supply_depot_batch):
     id = 0
     capacity = 500
-    chromosome = supply_depot_batch
+    chromosome = supply_depot_batch()
     return Chromosome(id, capacity, chromosome=chromosome)
 
 
@@ -208,20 +212,21 @@ def test_clone(supply_chromosome):
 
 @pytest.fixture
 def supply_chromosome_batch(supply_depot_batch):
-    chb = []
-    for i in range(np.random.randint(2, 10)):
-        id = np.random.randint(0, 100)
-        d = np.random.randint(0, 10)
-        c = np.random.randint(0, 100)
-        f = np.random.randint(0, 100)
-        chb.append(Chromosome(id, c, f, supply_depot_batch))
-    return chb
+    def call():
+        chb = []
+        for i in range(np.random.randint(2, 10)):
+            id = np.random.randint(0, 100)
+            c = np.random.randint(0, 100)
+            f = np.random.randint(0, 100)
+            chb.append(Chromosome(id, c, f, supply_depot_batch()))
+        return chb
+    return call
 
 
 @pytest.fixture
 def supply_population(supply_chromosome_batch):
     id = 0
-    return Population(id, supply_chromosome_batch)
+    return Population(id, supply_chromosome_batch())
 
 
 def test_population_init(supply_population: Population, supply_chromosome: Chromosome):
