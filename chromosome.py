@@ -22,6 +22,8 @@ class Chromosome:
             chromosome = []
         self.id = id
         self.capacity = capacity
+        for d in chromosome:
+            d.capacity = self.capacity
         self.chromosome = chromosome
         self.size = self.chromosome.__len__()
         self.fitness = fitness

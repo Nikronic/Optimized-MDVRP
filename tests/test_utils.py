@@ -111,15 +111,15 @@ def supply_depot_batch(supply_customer_batch):
 @pytest.fixture
 def supply_chromosome(supply_depot_batch):
     id = 0
-    capacity = 500
+    capacity = 200
     chromosome = supply_depot_batch()
-    return Chromosome(id, capacity, chromosome=chromosome)
+    return Chromosome(id=id, capacity=capacity, fitness=-1, chromosome=chromosome)
 
 
 def test_chromosome_init(supply_chromosome: Chromosome):
     assert supply_chromosome.id == 0
     assert supply_chromosome.chromosome.__len__() == supply_chromosome.size
-    assert supply_chromosome.capacity == 500
+    assert supply_chromosome.capacity == 200
     assert supply_chromosome.fitness == -1
 
 
@@ -189,7 +189,7 @@ def test_initial_routing(supply_depot: Depot):
     l: int = supply_depot.__len__()
     F.initial_routing(supply_depot)
     assert supply_depot.__len__() >= l+1
-    assert supply_depot[supply_depot.__len__()-1].null == True
+    assert supply_depot[-1].null == True
     if supply_depot.__len__() >= l+2:
         assert np.sum([c.cost for c in supply_depot]) >= supply_depot.capacity
 
@@ -307,6 +307,9 @@ def test_routes_ending_indices_attr(supply_depot: Depot):
     assert sorted(indices) == (supply_depot.__route_ending_index__())
 
 
-# def test_extract_random_route(supply_chromosome):
-#     route = F.extract_random_route(supply_chromosome)
+def test_extract_random_route(supply_chromosome):
+    for d in supply_chromosome:
+        F.initial_routing(d)
+    supply_chromosome.describe(True)
+    # route = F.extract_random_route(supply_chromosome)
 

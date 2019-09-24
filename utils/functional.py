@@ -30,13 +30,15 @@ def initial_routing(depot: Depot) -> None:
     :return: None
     """
     accumulated_weight = 0
-    separator = Customer(9999, depot.x, depot.y, 0, True)
-    for i in range(depot.__len__()):
+    separator = Customer(999, depot.x, depot.y, 0, True)
+    i = 0
+    while i < depot.__len__():
         if accumulated_weight+depot[i].cost > depot.capacity:
             depot.__insert__(i, separator)
             accumulated_weight = 0
             i += 1
         accumulated_weight += depot[i].cost
+        i += 1
     # depot.__add__(separator)
     if not depot[-1].null:
         depot.__add__(separator)
