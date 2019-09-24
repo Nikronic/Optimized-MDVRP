@@ -1,3 +1,5 @@
+from typing import List
+
 import pytest
 import numpy as np
 from scipy.spatial import distance
@@ -310,6 +312,10 @@ def test_routes_ending_indices_attr(supply_depot: Depot):
 def test_extract_random_route(supply_chromosome):
     for d in supply_chromosome:
         F.initial_routing(d)
-    supply_chromosome.describe(True)
-    # route = F.extract_random_route(supply_chromosome)
+    route, _, _, _ = F.extract_random_route(supply_chromosome)
+    for c in route:
+        assert c.null == False
+    for d in supply_chromosome:
+        assert route.__len__() < d.__len__()
+
 
