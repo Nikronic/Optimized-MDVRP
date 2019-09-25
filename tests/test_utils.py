@@ -4,6 +4,7 @@ import pytest
 import numpy as np
 from scipy.spatial import distance
 import math
+import random
 
 from population import Population
 from utils.customer import Customer
@@ -320,4 +321,16 @@ def test_extract_random_route(supply_chromosome):
     for i in range(route.__len__()-1):
         assert route[i].null == False
 
+
+def test_extract_route_from_depot(supply_depot):
+    F.initial_routing(supply_depot)
+    route, si, ei = F.extract_route_from_depot(supply_depot,
+                                               random.randint(0, supply_depot.routes_ending_indices.__len__()-1), False)
+    for c in route:
+        assert supply_depot.__contains__(c) == True
+    assert route[-1].null == False
+    for _, c in enumerate(supply_depot[si: ei]):
+        assert route.__contains__(c) == True
+    for c in route:
+        assert supply_depot[si: ei].__contains__(c) == True
 

@@ -6,6 +6,7 @@ from chromosome import Chromosome
 import math
 import random
 from copy import deepcopy
+import numpy as np
 
 from typing import List
 
@@ -144,3 +145,32 @@ def extract_random_route(chromosome: Chromosome, delete=True) -> (List[Customer]
         for c in reversed(route):  # use `reversed` or we loose the `null customer` index
             rand_depot.__remove__(c)
     return route, rand_depot_index, rand_route_start_idx, rand_route_end_idx
+
+
+def extract_route_from_depot(depot: Depot, route_idx: int, return_separator=False) -> (List[Customer], int, int):
+    """
+    Extracts a route with respect to the `route_idx` from the given `Depot`.
+    Note: A route defined is indicated by the `Customer`s between two `null` `Customer`s.
+    :param depot: A `Depot` to be searched
+    :param route_idx: An int number representing the n'th route in `Depot`
+    :param return_separator: Whether returning the `null` `Customer` as the end of route or not.
+    :return: A tuple of (`List` of `Customer`s, route_start_idx, route_end_idx).
+    """
+    if route_idx >= depot.__route_ending_index__().__len__():
+        raise Exception('There are not "{}" routes, try numbers between [0,{}] as "route_idx".'
+              .format(route_idx, depot.routes_ending_indices.__len__() - 1))
+    route_end_idx = depot.__route_ending_index__()[route_idx]
+    if route_idx == 0:
+        route_start_idx = 0
+        if return_separator:
+            route = depot[route_start_idx: route_end_idx+1]
+            return route, route_start_idx, route_end_idx+1
+        route = depot[route_start_idx: route_end_idx]
+        return route, route_start_idx, route_end_idx
+    else:
+        route_start_idx = depot.__route_ending_index__()[route_idx-1]
+        if return_separator:
+            route = depot[route_start_idx+1: route_end_idx+1]
+            return route, route_start_idx+1, route_end_idx+1
+        route = depot[route_start_idx + 1: route_end_idx]
+        return route, route_start_idx, route_end_idx
