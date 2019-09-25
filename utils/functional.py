@@ -173,4 +173,4 @@ def extract_route_from_depot(depot: Depot, route_idx: int, return_separator=Fals
             route = depot[route_start_idx+1: route_end_idx+1]
             return route, route_start_idx+1, route_end_idx+1
         route = depot[route_start_idx + 1: route_end_idx]
-        return route, route_start_idx, route_end_idx
+        return route, route_start_idx+1, route_end_idx
