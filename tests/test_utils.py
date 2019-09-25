@@ -35,6 +35,7 @@ def supply_customer_batch():
             s = False
             cb.append(Customer(id, x, y, w, s))
         return cb
+
     return call
 
 
@@ -108,6 +109,7 @@ def supply_depot_batch(supply_customer_batch):
             c = np.random.randint(0, 100)
             db.append(Depot(id, x, y, c, supply_customer_batch()))
         return db
+
     return call
 
 
@@ -191,15 +193,15 @@ def supply_separator():
 def test_initial_routing(supply_depot: Depot):
     l: int = supply_depot.__len__()
     F.initial_routing(supply_depot)
-    assert supply_depot.__len__() >= l+1
+    assert supply_depot.__len__() >= l + 1
     assert supply_depot[-1].null == True
-    if supply_depot.__len__() >= l+2:
+    if supply_depot.__len__() >= l + 2:
         assert np.sum([c.cost for c in supply_depot]) >= supply_depot.capacity
 
 
 def test_randomize_customers(supply_depot):
     l: int = supply_depot.__len__()
-    c = supply_depot[math.ceil(supply_depot.__len__()/2)]
+    c = supply_depot[math.ceil(supply_depot.__len__() / 2)]
     F.randomize_customers(supply_depot)
     assert supply_depot.__len__() == l
     assert supply_depot.__contains__(c) == True
@@ -223,6 +225,7 @@ def supply_chromosome_batch(supply_depot_batch):
             f = np.random.randint(0, 100)
             chb.append(Chromosome(id, c, f, supply_depot_batch()))
         return chb
+
     return call
 
 
@@ -318,14 +321,15 @@ def test_extract_random_route(supply_chromosome):
         if not c.null:
             assert supply_chromosome[di].__contains__(c) == False
     assert route[-1].null == True
-    for i in range(route.__len__()-1):
+    for i in range(route.__len__() - 1):
         assert route[i].null == False
 
 
 def test_extract_route_from_depot(supply_depot):
     F.initial_routing(supply_depot)
     route, si, ei = F.extract_route_from_depot(supply_depot,
-                                               random.randint(0, supply_depot.routes_ending_indices.__len__()-1), False)
+                                               random.randint(0, supply_depot.routes_ending_indices.__len__() - 1),
+                                               False)
     for c in route:
         assert supply_depot.__contains__(c) == True
     assert route[-1].null == False
@@ -333,4 +337,3 @@ def test_extract_route_from_depot(supply_depot):
         assert route.__contains__(c) == True
     for c in route:
         assert supply_depot[si: ei].__contains__(c) == True
-

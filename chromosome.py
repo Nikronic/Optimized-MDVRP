@@ -136,6 +136,6 @@ class Chromosome:
         if print_members:
             print('Members: ')
             for i, dpt in enumerate(self.chromosome):
-                print('Depot #{} Customers:'.format(i+1))
+                print('Depot #{} Customers:'.format(i + 1))
                 for ctmr in dpt:
                     ctmr.describe()

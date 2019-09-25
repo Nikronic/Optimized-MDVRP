@@ -58,7 +58,7 @@ class Depot:
         :return: None
         """
         if customer.null == True:
-            self.routes_ending_indices.insert(self.routes_ending_indices.__len__()-1, self.__len__())
+            self.routes_ending_indices.insert(self.routes_ending_indices.__len__() - 1, self.__len__())
 
         self.depot_customers.append(customer)
 
@@ -107,7 +107,7 @@ class Depot:
         :return: None
         """
         if customer.null == True:
-            self.routes_ending_indices.insert(self.routes_ending_indices.__len__()-1, index)
+            self.routes_ending_indices.insert(self.routes_ending_indices.__len__() - 1, index)
 
         return self.depot_customers.insert(index, customer)
 

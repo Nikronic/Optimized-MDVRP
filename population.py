@@ -8,6 +8,7 @@ class Population:
     """
     A List of `Chromosome`s as a population represents different sizes.
     """
+
     def __init__(self, id: int, chromosomes: List[Chromosome] = None):
         """
 
@@ -109,5 +110,3 @@ class Population:
         :return: A `Chromosome` class from `Population`.
         """
         return self.chromosomes[index]
-
-

@@ -34,7 +34,7 @@ def initial_routing(depot: Depot) -> None:
     separator = Customer(999, depot.x, depot.y, 0, True)
     i = 0
     while i < depot.__len__():
-        if accumulated_weight+depot[i].cost > depot.capacity:
+        if accumulated_weight + depot[i].cost > depot.capacity:
             depot.__insert__(i, separator)
             accumulated_weight = 0
             i += 1
@@ -126,21 +126,21 @@ def extract_random_route(chromosome: Chromosome, delete=True) -> (List[Customer]
     :param delete: Whether delete the extracted route from `Chromosome` or not.
     :return: A tuple of (List of `Customer`s, depot, start and end index)
     """
-    rand_depot_index = random.randint(0, chromosome.__len__()-1)
+    rand_depot_index = random.randint(0, chromosome.__len__() - 1)
     rand_depot: Depot = chromosome[rand_depot_index]
-    rand_route_idx = random.randint(0, rand_depot.__route_ending_index__().__len__()-1)
+    rand_route_idx = random.randint(0, rand_depot.__route_ending_index__().__len__() - 1)
     rand_route_end_idx = rand_depot.__route_ending_index__()[rand_route_idx]
     if rand_route_idx == 0:
         rand_route_start_idx = 0
-        route = rand_depot[rand_route_start_idx: rand_route_end_idx+1]
+        route = rand_depot[rand_route_start_idx: rand_route_end_idx + 1]
         if delete:
             for c in reversed(route):  # use `reversed` or we loose the `null customer` index
                 rand_depot.__remove__(c)
         return route, rand_depot_index, rand_route_start_idx, rand_route_end_idx
 
     else:
-        rand_route_start_idx = rand_depot.__route_ending_index__()[rand_route_idx-1]
-    route = rand_depot[rand_route_start_idx+1: rand_route_end_idx+1]
+        rand_route_start_idx = rand_depot.__route_ending_index__()[rand_route_idx - 1]
+    route = rand_depot[rand_route_start_idx + 1: rand_route_end_idx + 1]
     if delete:
         for c in reversed(route):  # use `reversed` or we loose the `null customer` index
             rand_depot.__remove__(c)
@@ -158,19 +158,19 @@ def extract_route_from_depot(depot: Depot, route_idx: int, return_separator=Fals
     """
     if route_idx >= depot.__route_ending_index__().__len__():
         raise Exception('There are not "{}" routes, try numbers between [0,{}] as "route_idx".'
-              .format(route_idx, depot.routes_ending_indices.__len__() - 1))
+                        .format(route_idx, depot.routes_ending_indices.__len__() - 1))
     route_end_idx = depot.__route_ending_index__()[route_idx]
     if route_idx == 0:
         route_start_idx = 0
         if return_separator:
-            route = depot[route_start_idx: route_end_idx+1]
-            return route, route_start_idx, route_end_idx+1
+            route = depot[route_start_idx: route_end_idx + 1]
+            return route, route_start_idx, route_end_idx + 1
         route = depot[route_start_idx: route_end_idx]
         return route, route_start_idx, route_end_idx
     else:
-        route_start_idx = depot.__route_ending_index__()[route_idx-1]
+        route_start_idx = depot.__route_ending_index__()[route_idx - 1]
         if return_separator:
-            route = depot[route_start_idx+1: route_end_idx+1]
-            return route, route_start_idx+1, route_end_idx+1
+            route = depot[route_start_idx + 1: route_end_idx + 1]
+            return route, route_start_idx + 1, route_end_idx + 1
         route = depot[route_start_idx + 1: route_end_idx]
-        return route, route_start_idx+1, route_end_idx
+        return route, route_start_idx + 1, route_end_idx
