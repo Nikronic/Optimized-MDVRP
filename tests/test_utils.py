@@ -312,10 +312,12 @@ def test_routes_ending_indices_attr(supply_depot: Depot):
 def test_extract_random_route(supply_chromosome):
     for d in supply_chromosome:
         F.initial_routing(d)
-    route, _, _, _ = F.extract_random_route(supply_chromosome)
+    route, di, si, ei = F.extract_random_route(supply_chromosome)
     for c in route:
-        assert c.null == False
-    for d in supply_chromosome:
-        assert route.__len__() < d.__len__()
+        if not c.null:
+            assert supply_chromosome[di].__contains__(c) == False
+    assert route[-1].null == True
+    for i in range(route.__len__()-1):
+        assert route[i].null == False
 
 

@@ -127,20 +127,20 @@ def extract_random_route(chromosome: Chromosome, delete=True) -> (List[Customer]
     """
     rand_depot_index = random.randint(0, chromosome.__len__()-1)
     rand_depot: Depot = chromosome[rand_depot_index]
-    if delete:
-        pass
     rand_route_idx = random.randint(0, rand_depot.__route_ending_index__().__len__()-1)
     rand_route_end_idx = rand_depot.__route_ending_index__()[rand_route_idx]
     if rand_route_idx == 0:
         rand_route_start_idx = 0
-        route = rand_depot[rand_route_start_idx: rand_route_end_idx]
-        for c in route:
-            rand_depot.__remove__(c)
+        route = rand_depot[rand_route_start_idx: rand_route_end_idx+1]
+        if delete:
+            for c in reversed(route):  # use `reversed` or we loose the `null customer` index
+                rand_depot.__remove__(c)
         return route, rand_depot_index, rand_route_start_idx, rand_route_end_idx
 
     else:
         rand_route_start_idx = rand_depot.__route_ending_index__()[rand_route_idx-1]
-    route = rand_depot[rand_route_start_idx+1: rand_route_end_idx]
-    for c in route:
-        rand_depot.__remove__(c)
+    route = rand_depot[rand_route_start_idx+1: rand_route_end_idx+1]
+    if delete:
+        for c in reversed(route):  # use `reversed` or we loose the `null customer` index
+            rand_depot.__remove__(c)
     return route, rand_depot_index, rand_route_start_idx, rand_route_end_idx
