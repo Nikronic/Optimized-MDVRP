@@ -344,3 +344,24 @@ def test_extract_route_from_depot(supply_depot):
         assert route.__contains__(c) == True
     for c in route:
         assert supply_depot[si: ei].__contains__(c) == True
+
+
+def test_insert_customer(supply_chromosome):
+    customer = Customer(10101010, 50, 50, 20, False)
+    for d in supply_chromosome:
+        F.initial_routing(d)
+    IO.chromosome_to_file(
+        supply_chromosome,
+        "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt")
+    print()
+    print()
+    supply_chromosome.describe(True)
+    print('*-*-*-*-*-*-*-*-')
+
+    F.insert_customer(customer, supply_chromosome)
+
+    print('/-/-/-/-/-/-/-/-/-')
+    supply_chromosome.describe(True)
+
+    assert False == True # force to fail (tested method not working properly)
+

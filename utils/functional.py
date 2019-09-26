@@ -174,3 +174,55 @@ def extract_route_from_depot(depot: Depot, route_idx: int, return_separator=Fals
             return route, route_start_idx + 1, route_end_idx + 1
         route = depot[route_start_idx + 1: route_end_idx]
         return route, route_start_idx + 1, route_end_idx
+
+
+def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int):
+    """
+    Inserts a `Customer` from randomly removed route of a `Depot` at a optimal place in `Chromosome`.
+
+    The optimal place can be found using following steps:
+    1. Find the nearest `Depot` to the given `Customer` using `euclidean_distance` function.
+    2. Calculate the `cost` and `distance` between all members of all routes of the the chosen `Depot` from previous
+       step
+    3.
+
+    :param customer: A `Customer` to be inserted in `Chromosome`
+    :param chromosome: An instance of `Chromosome` class
+    :return: A tuple of (the `Depot` index, route index using `extract_route_from_depot`)
+    """
+    nearest_depot_index = int(np.argmin([euclidean_distance(customer, d) for d in chromosome]))
+    nearest_depot = chromosome[nearest_depot_index]
+    distances = []
+    costs = []
+    min_distance = 99999999  # +inf
+    insert_index = -1
+    for i in range(nearest_depot.routes_ending_indices.__len__()):
+        route, _, _ = extract_route_from_depot(nearest_depot, i, False)
+        depot_temp = Customer(-1, nearest_depot.x, nearest_depot.y, 0, False)  # to calculate distance between depot
+        # and customers and will be removed after inserting new `Customer`
+        route.insert(0, depot_temp)
+        distances.append(sum([euclidean_distance(route[i - 1], route[i]) for i, _ in enumerate(route)]))
+        costs.append(sum([c.cost for c in route]))
+
+        for ci in range(route.__len__()-1):
+            if customer.cost + costs[i] <= nearest_depot.capacity:
+                t1 = euclidean_distance(nearest_depot[ci], nearest_depot[ci+1])
+                t2 = euclidean_distance(nearest_depot[ci], customer) + euclidean_distance(customer, nearest_depot[ci+1])
+                t3 = distances[i] - t1 + t2
+                if min_distance > t3:
+                    min_distance = t3
+                    # if ci == 0:
+                    #     insert_index = 0
+                    # else:
+                    #     insert_index = ci+1
+                    insert_index = ci + 1
+
+    nearest_depot.__remove__(depot_temp)
+    if insert_index == -1:
+        separator = Customer(9999, nearest_depot.x, nearest_depot.y, 0, True)
+        nearest_depot.__add__(customer)
+        nearest_depot.__add__(separator)
+    else:
+        nearest_depot.__insert__(insert_index, customer)
+
+    return nearest_depot_index
