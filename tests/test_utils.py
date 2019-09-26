@@ -11,6 +11,7 @@ from utils.customer import Customer
 from utils.depot import Depot
 from chromosome import Chromosome
 from utils import functional as F
+import utils.io as IO
 
 
 @pytest.fixture
@@ -323,6 +324,12 @@ def test_extract_random_route(supply_chromosome):
     assert route[-1].null == True
     for i in range(route.__len__() - 1):
         assert route[i].null == False
+
+
+def test_chromosome_to_file(supply_chromosome):
+    for d in supply_chromosome:
+        F.initial_routing(d)
+    IO.chromosome_to_file(supply_chromosome)
 
 
 def test_extract_route_from_depot(supply_depot):
