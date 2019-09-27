@@ -199,6 +199,8 @@ def test_initial_routing(supply_depot: Depot):
     assert supply_depot[-1].null == True
     if supply_depot.__len__() >= l + 2:
         assert np.sum([c.cost for c in supply_depot]) >= supply_depot.capacity
+    for i,_ in enumerate(supply_depot):
+        assert supply_depot[i-1].id != supply_depot[i]
 
 
 def test_randomize_customers(supply_depot):
@@ -223,7 +225,7 @@ def supply_chromosome_batch(supply_depot_batch):
         chb = []
         for i in range(np.random.randint(2, 10)):
             id = np.random.randint(0, 100)
-            c = np.random.randint(0, 100)
+            c = np.random.randint(100, 200)
             f = np.random.randint(0, 100)
             chb.append(Chromosome(id, c, f, supply_depot_batch()))
         return chb
