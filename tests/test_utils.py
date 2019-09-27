@@ -347,21 +347,16 @@ def test_extract_route_from_depot(supply_depot):
 
 
 def test_insert_customer(supply_chromosome):
-    customer = Customer(10101010, 50, 50, 20, False)
+    customer = Customer(10101010, 50, 50, 50, False)
     for d in supply_chromosome:
         F.initial_routing(d)
     IO.chromosome_to_file(
         supply_chromosome,
         "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt")
-    print()
-    print()
-    supply_chromosome.describe(True)
-    print('*-*-*-*-*-*-*-*-')
+    di, ii = F.insert_customer(customer, supply_chromosome)
+    assert supply_chromosome[di].__contains__(customer) == True
+    assert supply_chromosome[di][ii].id == customer.id
 
-    F.insert_customer(customer, supply_chromosome)
-
-    print('/-/-/-/-/-/-/-/-/-')
-    supply_chromosome.describe(True)
-
-    assert False == True # force to fail (tested method not working properly)
+    # Note: This is passed by another program as the ground-truth which is available in below repo
+    # https://github.com/Nikronic/MDVRP_UoG/blob/master/MDVRP_UoG/MDVRP_ORIG/Test.cs
 
