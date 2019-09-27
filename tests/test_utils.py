@@ -4,6 +4,7 @@ import pytest
 import numpy as np
 from scipy.spatial import distance
 import math
+import os
 import random
 
 from population import Population
@@ -350,9 +351,8 @@ def test_insert_customer(supply_chromosome):
     customer = Customer(10101010, 50, 50, 50, False)
     for d in supply_chromosome:
         F.initial_routing(d)
-    IO.chromosome_to_file(
-        supply_chromosome,
-        "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt")
+    file_path = "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt"
+    IO.chromosome_to_file(supply_chromosome, file_path)
     di, ii = F.insert_customer(customer, supply_chromosome)
     assert supply_chromosome[di].__contains__(customer) == True
     assert supply_chromosome[di][ii].id == customer.id

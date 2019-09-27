@@ -2,8 +2,13 @@ from utils.customer import Customer
 from utils.depot import Depot
 from chromosome import Chromosome
 
+import os
+
 
 def chromosome_to_file(chromosome: Chromosome, path='chromosome.txt'):
+    if not os.path.exists(path):
+        path = 'chromosome.txt'
+
     line = str(chromosome.id)+' '+str(chromosome.fitness)+' '+str(chromosome.capacity)+'\n'
     file = open(path, 'w+')
     file.write(line)
