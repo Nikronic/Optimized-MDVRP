@@ -240,3 +240,28 @@ def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int, in
         nearest_depot.__insert__(insert_index, customer)
 
     return nearest_depot_index, insert_index
+
+
+def cross_over(parents: Population) -> (Population, List[Customer], List[Customer]):
+    """
+    Gets a `Population` instance consisting of two `Chromosome`s and apply cross over on the parents based the
+    following steps:
+    1. First a random route need to be selected and also removed from the both `Chromosome`s
+       using `extract_random_route` function. (both extraction and deletion will be done by this function)
+    2. The randomly chosen route's `Customer`s from parent "1" will be added to the "second" parent using
+       'insert_customer' method. Furthermore, the randomly chosen route's `Customer`s from parent "2" will be added
+       to the "first" parent using aforementioned method too.
+
+    :param parents: An instance of `Population` class with "two" `Chromosome`s
+    :return: A `Population` class with "two" `Chromosome`s which has been obtained after cross-over.
+    """
+
+    first_parent, second_parent = parents[0], parents[1]
+    first_route = extract_random_route(first_parent, True)[0][:-1]
+    second_route = extract_random_route(second_parent, True)[0][:-1]
+    for c in first_route:
+        insert_customer(c, second_parent)
+    for c in second_route:
+        insert_customer(c, first_parent)
+    crossed_parents = Population(6969, [first_parent, second_parent])
+    return crossed_parents, first_route, second_route

@@ -362,3 +362,27 @@ def test_insert_customer(supply_chromosome):
     # Note: This is passed by another program as the ground-truth which is available in below repo
     # https://github.com/Nikronic/MDVRP_UoG/blob/master/MDVRP_UoG/MDVRP_ORIG/Test.cs
 
+
+def test_cross_over(supply_population):
+    parent0 = supply_population[0]
+    parent1 = supply_population[1]
+    for d in parent0:
+        F.initial_routing(d)
+    for d in parent1:
+        F.initial_routing(d)
+    parents = Population(0, [parent0, parent1])
+    crossed_parents, route0, route1 = F.cross_over(parents)
+
+    flag = 0
+    for c in route0:
+        for d in crossed_parents[1]:
+            if d.__contains__(c):
+                flag += 1
+    assert flag == route0.__len__()
+
+    flag = 0
+    for c in route1:
+        for d in crossed_parents[0]:
+            if d.__contains__(c):
+                flag += 1
+    assert flag == route1.__len__()
