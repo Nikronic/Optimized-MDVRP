@@ -184,7 +184,10 @@ def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int, in
     1. Find the nearest `Depot` to the given `Customer` using `euclidean_distance` function.
     2. Calculate the `cost` and `distance` between all members of all routes of the the chosen `Depot` from previous
        step
-    3.
+    3. Now the code calculates the distance in each route in the selected `Depot` if we add the `Customer` in all routes
+       from index 0 to the routes' lengths. Then we add customer in the route with minimum distance regarding the
+       capacity constraint on each `Depot`.
+    4. Finally the code returns the index of `Depot` and the position the `Customer` has been added.
 
     :param customer: A `Customer` to be inserted in `Chromosome`
     :param chromosome: An instance of `Chromosome` class
@@ -209,9 +212,9 @@ def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int, in
 
         if customer.cost + costs[i] <= nearest_depot.capacity:
             for ci in range(route.__len__()):
-                t1 = euclidean_distance(route[ci], route[(ci+1) % route.__len__()])
+                t1 = euclidean_distance(route[ci], route[(ci + 1) % route.__len__()])
                 t2 = euclidean_distance(route[ci], customer) + euclidean_distance(customer,
-                                                                                  route[(ci+1) % route.__len__()])
+                                                                                  route[(ci + 1) % route.__len__()])
                 t3 = distances[i] - t1 + t2
                 t3s.append(t3)
 
@@ -226,13 +229,13 @@ def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int, in
         route.remove(depot_temp)
 
     if route_index > 0:
-        insert_index += nearest_depot.__route_ending_index__()[route_index-1] + 1
+        insert_index += nearest_depot.__route_ending_index__()[route_index - 1] + 1
 
     if route_index == -1:
         separator = Customer(9999, nearest_depot.x, nearest_depot.y, 0, True)
         nearest_depot.__add__(customer)
         nearest_depot.__add__(separator)
-        insert_index = nearest_depot.__len__()-2
+        insert_index = nearest_depot.__len__() - 2
     else:
         nearest_depot.__insert__(insert_index, customer)
 
