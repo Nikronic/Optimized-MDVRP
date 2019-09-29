@@ -90,7 +90,7 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
     supply_depot.remove(supply_customer)
     assert supply_depot.len() == l
 
-    # __removeat__
+    # remove_at
     supply_depot.remove_at(0)
     assert supply_depot.len() == l - 1
     assert supply_depot.remove_at(10) == False
@@ -134,45 +134,45 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
     # __getitem__ , tests subscribable class
     assert supply_chromosome[0] == supply_chromosome.chromosome[0]
 
-    # __fitness__
-    assert supply_chromosome.__fitness__() == supply_chromosome.fitness
-    assert supply_chromosome.__fitness__() == -1
+    # fitness_value
+    assert supply_chromosome.fitness_value() == supply_chromosome.fitness
+    assert supply_chromosome.fitness_value() == -1
 
     # get_all
-    assert supply_chromosome.__getall__().__len__() == supply_chromosome.chromosome.__len__()
+    assert supply_chromosome.get_all().__len__() == supply_chromosome.chromosome.__len__()
 
     # add
-    l: int = supply_chromosome.__len__()
-    supply_chromosome.__add__(supply_depot)
-    assert supply_chromosome.__len__() == l + 1
+    l: int = supply_chromosome.len()
+    supply_chromosome.add(supply_depot)
+    assert supply_chromosome.len() == l + 1
 
     assert supply_chromosome.chromosome[supply_chromosome.chromosome.__len__() - 1].capacity == supply_depot.capacity
 
     # len
-    assert supply_chromosome.__len__() == supply_chromosome.chromosome.__len__()
+    assert supply_chromosome.len() == supply_chromosome.chromosome.__len__()
 
     # contains
-    assert supply_chromosome.__contains__(supply_depot) == True
+    assert supply_chromosome.contains(supply_depot) == True
 
     # index
-    assert supply_chromosome.__index__(supply_depot) == supply_chromosome.__len__() - 1
+    assert supply_chromosome.index(supply_depot) == supply_chromosome.len() - 1
 
     # remove
-    supply_chromosome.__remove__(supply_depot)
-    assert supply_chromosome.__len__() == l
+    supply_chromosome.remove(supply_depot)
+    assert supply_chromosome.len() == l
 
-    # __removeat__
-    supply_chromosome.__removeat__(0)
-    assert supply_chromosome.__len__() == l - 1
-    assert supply_chromosome.__removeat__(10) == False
+    # remove_at
+    supply_chromosome.remove_at(0)
+    assert supply_chromosome.len() == l - 1
+    assert supply_chromosome.remove_at(10) == False
 
     # clear , put it at the end of file before insert
-    supply_chromosome.__clear__()
-    assert supply_chromosome.__len__() == 0
+    supply_chromosome.clear()
+    assert supply_chromosome.len() == 0
 
     # insert
-    supply_chromosome.__insert__(0, supply_depot)
-    assert supply_chromosome.__len__() == 1
+    supply_chromosome.insert(0, supply_depot)
+    assert supply_chromosome.len() == 1
 
 
 def test_euclidean_distance(supply_customer: Customer, supply_depot: Depot):
@@ -220,7 +220,7 @@ def test_randomize_customers(supply_depot):
 def test_clone(supply_chromosome):
     cloned = F.clone(supply_chromosome)
     assert cloned != supply_chromosome
-    assert cloned.__len__() == supply_chromosome.__len__()
+    assert cloned.len() == supply_chromosome.len()
     assert cloned.id == supply_chromosome.id
     assert cloned.capacity == supply_chromosome.capacity
 
@@ -272,7 +272,7 @@ def test_population_functions(supply_population, ):
     supply_population.__remove__(supply_chromosome)
     assert supply_population.__len__() == l
 
-    # __removeat__
+    # remove_at
     supply_population.__removeat__(0)
     assert supply_population.__len__() == l - 1
     assert supply_population.__removeat__(10) == False
@@ -297,7 +297,7 @@ def test_fittest_chromosome(supply_population):
     fittest: Chromosome = F.fittest_chromosome(supply_population)
     assert supply_population.__contains__(fittest) == True
     for c in supply_population:
-        assert fittest.__fitness__() >= c.__fitness__()
+        assert fittest.fitness_value() >= c.fitness_value()
 
 
 def test_tournament(supply_population):

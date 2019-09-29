@@ -103,12 +103,12 @@ def extract_population(population: Population, size: int) -> Population:
 
 def fittest_chromosome(population: Population) -> Chromosome:
     """
-    Returns the `Chromosome` with maximum `fitness` within whole `Population`
+    Returns the `Chromosome` with maximum `fitness_value` within whole `Population`
     :param population: An instance of `Population` class
     :return: A single `Chromosome`
     """
 
-    return max(population, key=lambda chromosome: chromosome.__fitness__())
+    return max(population, key=lambda chromosome: chromosome.fitness_value())
 
 
 def tournament(population: Population, tournament_probability: float = 0.8, size: int = 2) -> Population:
@@ -146,7 +146,7 @@ def extract_random_route(chromosome: Chromosome, delete=True) -> (List[Customer]
     :param delete: Whether delete the extracted route from `Chromosome` or not.
     :return: A tuple of (List of `Customer`s, depot, start and end index)
     """
-    rand_depot_index = random.randint(0, chromosome.__len__() - 1)
+    rand_depot_index = random.randint(0, chromosome.len() - 1)
     rand_depot: Depot = chromosome[rand_depot_index]
     rand_route_idx = random.randint(0, rand_depot.route_ending_index().__len__() - 1)
     rand_route_end_idx = rand_depot.route_ending_index()[rand_route_idx]
