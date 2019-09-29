@@ -220,7 +220,6 @@ def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int, in
     min_distance = 99999999  # +inf
     insert_index = -1
     route_index = -1
-    t3s = []
     depot_temp = Customer(-1, nearest_depot.x, nearest_depot.y, 0, False)  # to calculate distance between depot
     # and customers and will be removed after inserting new `Customer`
 
@@ -236,10 +235,6 @@ def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int, in
                 t2 = euclidean_distance(route[ci], customer) + euclidean_distance(customer,
                                                                                   route[(ci + 1) % route.__len__()])
                 t3 = distances[i] - t1 + t2
-                t3s.append(t3)
-
-                if ci == 0:
-                    pass
 
                 if min_distance > t3:
                     min_distance = t3
