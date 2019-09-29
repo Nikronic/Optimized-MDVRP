@@ -94,10 +94,10 @@ def extract_population(population: Population, size: int) -> Population:
     :param size: The result `Population` size.
     :return: A `Population` class
     """
-    indices = random.sample(range(0, population.__len__()), size)
+    indices = random.sample(range(0, population.len()), size)
     new_population = Population(id=0)
     for i in indices:
-        new_population.__add__(population[i])
+        new_population.add(population[i])
     return new_population
 
 
@@ -134,7 +134,7 @@ def tournament(population: Population, tournament_probability: float = 0.8, size
         second_fittest = fittest_chromosome(second_sample)
         return Population(0, [first_fittest, second_fittest])
     else:
-        indices = random.sample(range(0, first_sample.__len__()), 2)
+        indices = random.sample(range(0, first_sample.len()), 2)
         return Population(0, [first_sample[indices[0]], first_sample[indices[1]]])
 
 

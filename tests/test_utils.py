@@ -252,64 +252,64 @@ def test_population_init(supply_population: Population, supply_chromosome: Chrom
 
 def test_population_functions(supply_population, ):
     # get_all
-    assert supply_population.__getall__().__len__() == supply_population.chromosomes.__len__()
+    assert supply_population.get_all().__len__() == supply_population.chromosomes.__len__()
 
     # add
-    l: int = supply_population.__len__()
-    supply_population.__add__(supply_chromosome)
-    assert supply_population.__len__() == l + 1
+    l: int = supply_population.len()
+    supply_population.add(supply_chromosome)
+    assert supply_population.len() == l + 1
 
     # len
-    assert supply_population.__len__() == supply_population.chromosomes.__len__()
+    assert supply_population.len() == supply_population.chromosomes.__len__()
 
     # contains
-    assert supply_population.__contains__(supply_chromosome) == True
+    assert supply_population.contains(supply_chromosome) == True
 
     # index
-    assert supply_population.__index__(supply_chromosome) == supply_population.__len__() - 1
+    assert supply_population.index(supply_chromosome) == supply_population.len() - 1
 
     # remove
-    supply_population.__remove__(supply_chromosome)
-    assert supply_population.__len__() == l
+    supply_population.remove(supply_chromosome)
+    assert supply_population.len() == l
 
     # remove_at
-    supply_population.__removeat__(0)
-    assert supply_population.__len__() == l - 1
-    assert supply_population.__removeat__(10) == False
+    supply_population.remove_at(0)
+    assert supply_population.len() == l - 1
+    assert supply_population.remove_at(10) == False
 
     # clear , put it at the end of file before insert
-    supply_population.__clear__()
-    assert supply_population.__len__() == 0
+    supply_population.clear()
+    assert supply_population.len() == 0
 
     # insert
-    supply_population.__insert__(0, supply_chromosome)
-    assert supply_population.__len__() == 1
+    supply_population.insert(0, supply_chromosome)
+    assert supply_population.len() == 1
 
 
 def test_extract_population(supply_population):
     extracted = F.extract_population(supply_population, 2)
-    assert extracted.__len__() == 2
-    assert supply_population.__contains__(extracted[0]) == True
-    assert supply_population.__contains__(extracted[1]) == True
+    assert extracted.len() == 2
+    assert supply_population.contains(extracted[0]) == True
+    assert supply_population.contains(extracted[1]) == True
 
 
 def test_fittest_chromosome(supply_population):
     fittest: Chromosome = F.fittest_chromosome(supply_population)
-    assert supply_population.__contains__(fittest) == True
+    assert supply_population.contains(fittest) == True
     for c in supply_population:
         assert fittest.fitness_value() >= c.fitness_value()
 
 
 def test_tournament(supply_population):
     parents = F.tournament(supply_population)
-    assert parents.__len__() == 2
-    assert supply_population.__contains__(parents[0]) == True
-    assert supply_population.__contains__(parents[1]) == True
+    assert parents.len() == 2
+    assert supply_population.contains(parents[0]) == True
+    assert supply_population.contains(parents[1]) == True
 
     parents = F.tournament(supply_population, 0.0)  # force to use random parents not fittest ('else' condition)
-    assert parents.__len__() == 2
-    assert supply_population.__contains__(parents[0]) == True
-    assert supply_population.__contains__(parents[1]) == True
+    assert parents.len() == 2
+    assert supply_population.contains(parents[0]) == True
+    assert supply_population.contains(parents[1]) == True
 
 
 def test_routes_ending_indices_attr(supply_depot: Depot):

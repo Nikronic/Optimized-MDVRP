@@ -21,21 +21,21 @@ class Population:
         self.chromosomes = chromosomes
         self.size = self.chromosomes.__len__()
 
-    def __len__(self) -> int:
+    def len(self) -> int:
         """
         Number of `Chromosomes`s in the `Population`
         :return: An int number
         """
         return self.chromosomes.__len__()
 
-    def __getall__(self) -> List[Chromosome]:
+    def get_all(self) -> List[Chromosome]:
         """
         Returns all `Chromosome`s as a list independently using deep copy
         :return: A list
         """
         return deepcopy(self.chromosomes)
 
-    def __add__(self, chromosome: Chromosome):
+    def add(self, chromosome: Chromosome):
         """
         Adds a `Chromosome` to the `Population`
         :param chromosome: `Chromosome` class instance
@@ -43,14 +43,14 @@ class Population:
         """
         self.chromosomes.append(chromosome)
 
-    def __clear__(self):
+    def clear(self):
         """
         Clear the `Population` from `Chromosome`s
         :return: None
         """
         self.chromosomes.clear()
 
-    def __contains__(self, chromosome: Chromosome) -> bool:
+    def contains(self, chromosome: Chromosome) -> bool:
         """
         Looks for the `Chromosome` in the `Population` and returns if it exist
         :param chromosome: A 'Chromosome` class instance
@@ -58,14 +58,14 @@ class Population:
         """
         return self.chromosomes.__contains__(chromosome)
 
-    def __copy__(self) -> List[Chromosome]:
+    def copy(self) -> List[Chromosome]:
         """
         A shallow copy of the `Chromosome`s in the `Population` using builtin `Copy` method
         :return: a list
         """
         return self.chromosomes.copy()
 
-    def __index__(self, chromosome: Chromosome) -> int:
+    def index(self, chromosome: Chromosome) -> int:
         """
         Returns the index of the `Chromosome` in the `Population`
         :param chromosome: A `Chromosome` class instance
@@ -73,32 +73,33 @@ class Population:
         """
         return self.chromosomes.index(chromosome)
 
-    def __insert__(self, index: int, chromosome: Chromosome):
+    def insert(self, index: int, chromosome: Chromosome):
         """
         Inserts a new `Chromosome` at a specific `index`
+        :param index: The index of insertion
         :param chromosome: A `Chromosome` class instance
         :return: None
         """
         return self.chromosomes.insert(index, chromosome)
 
-    def __remove__(self, chromosome: Chromosome) -> bool:
+    def remove(self, chromosome: Chromosome) -> bool:
         """
         Removes a `Chromosome` from the `Population`
         :param chromosome: a `Chromosome` class instance
         :return: bool, if `Chromosome` does not exist returns False, else True
         """
-        if self.__contains__(chromosome):
+        if self.contains(chromosome):
             self.chromosomes.remove(chromosome)
             return True
         return False
 
-    def __removeat__(self, index: int) -> bool:
+    def remove_at(self, index: int) -> bool:
         """
         Remove a `Chromosome` at defined `index` from `Population`
         :param index: an int number
         :return: bool, if `Chromosome` does not exist returns False, else True
         """
-        if index <= self.__len__():
+        if index <= self.len():
             self.chromosomes.remove(self.chromosomes[index])
             return True
         return False
