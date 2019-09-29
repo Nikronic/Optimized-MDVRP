@@ -203,6 +203,12 @@ def test_initial_routing(supply_depot: Depot):
         assert supply_depot[i-1].id != supply_depot[i]
 
 
+def test_initialize_routing(supply_population, supply_chromosome, supply_depot):
+    F.initialize_routing(supply_population)
+    F.initialize_routing(supply_chromosome)
+    F.initialize_routing(supply_depot)
+
+
 def test_randomize_customers(supply_depot):
     l: int = supply_depot.__len__()
     c = supply_depot[math.ceil(supply_depot.__len__() / 2)]

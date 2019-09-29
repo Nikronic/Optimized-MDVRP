@@ -40,9 +40,29 @@ def initial_routing(depot: Depot) -> None:
             i += 1
         accumulated_weight += depot[i].cost
         i += 1
-    # depot.__add__(separator)
     if not depot[-1].null:
         depot.__add__(separator)
+
+
+def initialize_routing(instance) -> None:
+    """
+    Adds `Customer`s sequentially to the `Depot` until accumulated `weight` of `Customer`s, surpasses
+    the `Depot`'s maximum `capacity.
+
+    Note: Between two `separator` `Customer`, constructs a route to be satisfied by a vehicle.
+
+    :param instance: An instance of `Depot`, 'Chromosome' or 'Population'
+    :return: None
+    """
+    if instance.__class__.__name__.__contains__('Population'):
+        for ch in instance:
+            for d in ch:
+                initial_routing(d)
+    elif instance.__class__.__name__.__contains__('Chromosome'):
+        for d in instance:
+            initial_routing(d)
+    else:
+        initial_routing(instance)
 
 
 # aliased in C# as "RandomList"
