@@ -67,37 +67,37 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
     # __getitem__ , tests subscribable class
     assert supply_depot[0] == supply_depot.depot_customers[0]
 
-    # __getall__
-    assert supply_depot.__getall__().__len__() == supply_depot.depot_customers.__len__()
+    # get_all
+    assert supply_depot.get_all().__len__() == supply_depot.depot_customers.__len__()
 
-    # __add__
-    l: int = supply_depot.__len__()
-    supply_depot.__add__(supply_customer)
-    assert supply_depot.__len__() == l + 1
+    # add
+    l: int = supply_depot.len()
+    supply_depot.add(supply_customer)
+    assert supply_depot.len() == l + 1
 
     assert supply_depot.depot_customers[supply_depot.depot_customers.__len__() - 1].cost == supply_customer.cost
 
-    # __len__
-    assert supply_depot.__len__() == supply_depot.depot_customers.__len__()
+    # len
+    assert supply_depot.len() == supply_depot.depot_customers.__len__()
 
-    # __contains__
-    assert supply_depot.__contains__(supply_customer) == True
+    # contains
+    assert supply_depot.contains(supply_customer) == True
 
-    # __index__
-    assert supply_depot.__index__(supply_customer) == supply_depot.__len__() - 1
+    # index
+    assert supply_depot.index(supply_customer) == supply_depot.len() - 1
 
-    # __remove__
-    supply_depot.__remove__(supply_customer)
-    assert supply_depot.__len__() == l
+    # remove
+    supply_depot.remove(supply_customer)
+    assert supply_depot.len() == l
 
     # __removeat__
-    supply_depot.__remmoveat__(0)
-    assert supply_depot.__len__() == l - 1
-    assert supply_depot.__remmoveat__(10) == False
+    supply_depot.remove_at(0)
+    assert supply_depot.len() == l - 1
+    assert supply_depot.remove_at(10) == False
 
-    # __clear__ , put it at the end of file
-    supply_depot.__clear__()
-    assert supply_depot.__len__() == 0
+    # clear , put it at the end of file
+    supply_depot.clear()
+    assert supply_depot.len() == 0
 
 
 @pytest.fixture
@@ -138,26 +138,26 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
     assert supply_chromosome.__fitness__() == supply_chromosome.fitness
     assert supply_chromosome.__fitness__() == -1
 
-    # __getall__
+    # get_all
     assert supply_chromosome.__getall__().__len__() == supply_chromosome.chromosome.__len__()
 
-    # __add__
+    # add
     l: int = supply_chromosome.__len__()
     supply_chromosome.__add__(supply_depot)
     assert supply_chromosome.__len__() == l + 1
 
     assert supply_chromosome.chromosome[supply_chromosome.chromosome.__len__() - 1].capacity == supply_depot.capacity
 
-    # __len__
+    # len
     assert supply_chromosome.__len__() == supply_chromosome.chromosome.__len__()
 
-    # __contains__
+    # contains
     assert supply_chromosome.__contains__(supply_depot) == True
 
-    # __index__
+    # index
     assert supply_chromosome.__index__(supply_depot) == supply_chromosome.__len__() - 1
 
-    # __remove__
+    # remove
     supply_chromosome.__remove__(supply_depot)
     assert supply_chromosome.__len__() == l
 
@@ -166,11 +166,11 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
     assert supply_chromosome.__len__() == l - 1
     assert supply_chromosome.__removeat__(10) == False
 
-    # __clear__ , put it at the end of file before __insert__
+    # clear , put it at the end of file before insert
     supply_chromosome.__clear__()
     assert supply_chromosome.__len__() == 0
 
-    # __insert__
+    # insert
     supply_chromosome.__insert__(0, supply_depot)
     assert supply_chromosome.__len__() == 1
 
@@ -193,11 +193,11 @@ def supply_separator():
 
 
 def test_initial_routing(supply_depot: Depot):
-    l: int = supply_depot.__len__()
+    l: int = supply_depot.len()
     F.initial_routing(supply_depot)
-    assert supply_depot.__len__() >= l + 1
+    assert supply_depot.len() >= l + 1
     assert supply_depot[-1].null == True
-    if supply_depot.__len__() >= l + 2:
+    if supply_depot.len() >= l + 2:
         assert np.sum([c.cost for c in supply_depot]) >= supply_depot.capacity
     for i,_ in enumerate(supply_depot):
         assert supply_depot[i-1].id != supply_depot[i]
@@ -210,11 +210,11 @@ def test_initialize_routing(supply_population, supply_chromosome, supply_depot):
 
 
 def test_randomize_customers(supply_depot):
-    l: int = supply_depot.__len__()
-    c = supply_depot[math.ceil(supply_depot.__len__() / 2)]
+    l: int = supply_depot.len()
+    c = supply_depot[math.ceil(supply_depot.len() / 2)]
     F.randomize_customers(supply_depot)
-    assert supply_depot.__len__() == l
-    assert supply_depot.__contains__(c) == True
+    assert supply_depot.len() == l
+    assert supply_depot.contains(c) == True
 
 
 def test_clone(supply_chromosome):
@@ -251,24 +251,24 @@ def test_population_init(supply_population: Population, supply_chromosome: Chrom
 
 
 def test_population_functions(supply_population, ):
-    # __getall__
+    # get_all
     assert supply_population.__getall__().__len__() == supply_population.chromosomes.__len__()
 
-    # __add__
+    # add
     l: int = supply_population.__len__()
     supply_population.__add__(supply_chromosome)
     assert supply_population.__len__() == l + 1
 
-    # __len__
+    # len
     assert supply_population.__len__() == supply_population.chromosomes.__len__()
 
-    # __contains__
+    # contains
     assert supply_population.__contains__(supply_chromosome) == True
 
-    # __index__
+    # index
     assert supply_population.__index__(supply_chromosome) == supply_population.__len__() - 1
 
-    # __remove__
+    # remove
     supply_population.__remove__(supply_chromosome)
     assert supply_population.__len__() == l
 
@@ -277,11 +277,11 @@ def test_population_functions(supply_population, ):
     assert supply_population.__len__() == l - 1
     assert supply_population.__removeat__(10) == False
 
-    # __clear__ , put it at the end of file before __insert__
+    # clear , put it at the end of file before insert
     supply_population.__clear__()
     assert supply_population.__len__() == 0
 
-    # __insert__
+    # insert
     supply_population.__insert__(0, supply_chromosome)
     assert supply_population.__len__() == 1
 
@@ -314,13 +314,13 @@ def test_tournament(supply_population):
 
 def test_routes_ending_indices_attr(supply_depot: Depot):
     F.initial_routing(supply_depot)
-    for i in supply_depot.__route_ending_index__():
+    for i in supply_depot.route_ending_index():
         assert supply_depot[i].null == True
     indices = []
     for i, c in enumerate(supply_depot):
         if c.null:
             indices.append(i)
-    assert sorted(indices) == (supply_depot.__route_ending_index__())
+    assert sorted(indices) == (supply_depot.route_ending_index())
 
 
 def test_extract_random_route(supply_chromosome):
@@ -329,7 +329,7 @@ def test_extract_random_route(supply_chromosome):
     route, di, si, ei = F.extract_random_route(supply_chromosome)
     for c in route:
         if not c.null:
-            assert supply_chromosome[di].__contains__(c) == False
+            assert supply_chromosome[di].contains(c) == False
     assert route[-1].null == True
     for i in range(route.__len__() - 1):
         assert route[i].null == False
@@ -347,7 +347,7 @@ def test_extract_route_from_depot(supply_depot):
                                                random.randint(0, supply_depot.routes_ending_indices.__len__() - 1),
                                                False)
     for c in route:
-        assert supply_depot.__contains__(c) == True
+        assert supply_depot.contains(c) == True
     assert route[-1].null == False
     for _, c in enumerate(supply_depot[si: ei]):
         assert route.__contains__(c) == True
@@ -362,7 +362,7 @@ def test_insert_customer(supply_chromosome):
     file_path = "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt"
     IO.chromosome_to_file(supply_chromosome, file_path)
     di, ii = F.insert_customer(customer, supply_chromosome)
-    assert supply_chromosome[di].__contains__(customer) == True
+    assert supply_chromosome[di].contains(customer) == True
     assert supply_chromosome[di][ii].id == customer.id
 
     # Note: This is passed by another program as the ground-truth which is available in below repo
@@ -382,13 +382,13 @@ def test_cross_over(supply_population):
     flag = 0
     for c in route0:
         for d in crossed_parents[1]:
-            if d.__contains__(c):
+            if d.contains(c):
                 flag += 1
     assert flag == route0.__len__()
 
     flag = 0
     for c in route1:
         for d in crossed_parents[0]:
-            if d.__contains__(c):
+            if d.contains(c):
                 flag += 1
     assert flag == route1.__len__()

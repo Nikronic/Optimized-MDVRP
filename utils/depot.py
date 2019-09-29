@@ -36,7 +36,7 @@ class Depot:
                     self.routes_ending_indices.append(i)
         self.size = self.depot_customers.__len__()
 
-    def __route_ending_index__(self) -> List[int]:
+    def route_ending_index(self) -> List[int]:
         """
         Sorts then returns the list of indices corresponding to the the index of null customer representing the end
         of a route in a `Depot`.
@@ -44,25 +44,25 @@ class Depot:
         """
         return sorted(self.routes_ending_indices)
 
-    def __getall__(self) -> List[Customer]:
+    def get_all(self) -> List[Customer]:
         """
         Returns all `Customer`s as a list independently using deep copy
         :return: A list
         """
         return deepcopy(self.depot_customers)
 
-    def __add__(self, customer: Customer):
+    def add(self, customer: Customer):
         """
         Adds a `Customer` to the `Depot`
         :param customer: Customer class instance
         :return: None
         """
         if customer.null == True:
-            self.routes_ending_indices.insert(self.routes_ending_indices.__len__() - 1, self.__len__())
+            self.routes_ending_indices.insert(self.routes_ending_indices.__len__() - 1, self.len())
 
         self.depot_customers.append(customer)
 
-    def __clear__(self):
+    def clear(self):
         """
         Clear the `Depot` from `Customer`s
         :return: None
@@ -70,14 +70,14 @@ class Depot:
         self.routes_ending_indices = []
         self.depot_customers.clear()
 
-    def __len__(self) -> int:
+    def len(self) -> int:
         """
         Return the number of `Customer`s in the `Depot`
         :return: int depot size
         """
         return self.depot_customers.__len__()
 
-    def __contains__(self, customer: Customer) -> bool:
+    def contains(self, customer: Customer) -> bool:
         """
         Looks for the `Customer` in the `Depot` and returns if it exist
         :param customer: A 'Customer` class instance
@@ -85,14 +85,14 @@ class Depot:
         """
         return self.depot_customers.__contains__(customer)
 
-    def __copy__(self) -> List[Customer]:
+    def copy(self) -> List[Customer]:
         """
         A shallow copy of the `Customer`s in the `Depot` using builtin `Copy` method
         :return: a list
         """
         return self.depot_customers.copy()
 
-    def __index__(self, customer: Customer) -> int:
+    def index(self, customer: Customer) -> int:
         """
         Returns the index of the `Customer` in the `Depot`
         :param customer: A `Customer` class instance
@@ -100,7 +100,7 @@ class Depot:
         """
         return self.depot_customers.index(customer)
 
-    def __insert__(self, index: int, customer: Customer):
+    def insert(self, index: int, customer: Customer):
         """
         Insterts a new `Customer` into a specific `index`
         :param customer: A `Customer` class instance
@@ -111,26 +111,26 @@ class Depot:
 
         return self.depot_customers.insert(index, customer)
 
-    def __remove__(self, customer: Customer) -> bool:
+    def remove(self, customer: Customer) -> bool:
         """
         Removes a `Customer` from the `Depot`
         :param customer: a `Customer` class instance
         :return: bool, if `Customer` does not exist returns False, else True
         """
-        if self.__contains__(customer):
+        if self.contains(customer):
             if customer.null == True:
-                self.routes_ending_indices.remove(self.__index__(customer))
+                self.routes_ending_indices.remove(self.index(customer))
             self.depot_customers.remove(customer)
             return True
         return False
 
-    def __remmoveat__(self, index: int) -> bool:
+    def remove_at(self, index: int) -> bool:
         """
         Remove a `Customer` at defined `index` from `Depot`
         :param index: an int number
         :return: bool, if `Customer` does not exist returns False, else True
         """
-        if index <= self.__len__():
+        if index <= self.len():
             if self.depot_customers[index].null == True:
                 self.routes_ending_indices.remove(index)
             self.depot_customers.remove(self.depot_customers[index])

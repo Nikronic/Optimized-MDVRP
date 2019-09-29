@@ -33,15 +33,15 @@ def initial_routing(depot: Depot) -> None:
     accumulated_weight = 0
     separator = Customer(999, depot.x, depot.y, 0, True)
     i = 0
-    while i < depot.__len__():
+    while i < depot.len():
         if accumulated_weight + depot[i].cost > depot.capacity:
-            depot.__insert__(i, separator)
+            depot.insert(i, separator)
             accumulated_weight = 0
             i += 1
         accumulated_weight += depot[i].cost
         i += 1
     if not depot[-1].null:
-        depot.__add__(separator)
+        depot.add(separator)
 
 
 def initialize_routing(instance) -> None:
@@ -148,22 +148,22 @@ def extract_random_route(chromosome: Chromosome, delete=True) -> (List[Customer]
     """
     rand_depot_index = random.randint(0, chromosome.__len__() - 1)
     rand_depot: Depot = chromosome[rand_depot_index]
-    rand_route_idx = random.randint(0, rand_depot.__route_ending_index__().__len__() - 1)
-    rand_route_end_idx = rand_depot.__route_ending_index__()[rand_route_idx]
+    rand_route_idx = random.randint(0, rand_depot.route_ending_index().__len__() - 1)
+    rand_route_end_idx = rand_depot.route_ending_index()[rand_route_idx]
     if rand_route_idx == 0:
         rand_route_start_idx = 0
         route = rand_depot[rand_route_start_idx: rand_route_end_idx + 1]
         if delete:
             for c in reversed(route):  # use `reversed` or we loose the `null customer` index
-                rand_depot.__remove__(c)
+                rand_depot.remove(c)
         return route, rand_depot_index, rand_route_start_idx, rand_route_end_idx
 
     else:
-        rand_route_start_idx = rand_depot.__route_ending_index__()[rand_route_idx - 1]
+        rand_route_start_idx = rand_depot.route_ending_index()[rand_route_idx - 1]
     route = rand_depot[rand_route_start_idx + 1: rand_route_end_idx + 1]
     if delete:
         for c in reversed(route):  # use `reversed` or we loose the `null customer` index
-            rand_depot.__remove__(c)
+            rand_depot.remove(c)
     return route, rand_depot_index, rand_route_start_idx, rand_route_end_idx
 
 
@@ -176,10 +176,10 @@ def extract_route_from_depot(depot: Depot, route_idx: int, return_separator=Fals
     :param return_separator: Whether returning the `null` `Customer` as the end of route or not.
     :return: A tuple of (`List` of `Customer`s, route_start_idx, route_end_idx).
     """
-    if route_idx >= depot.__route_ending_index__().__len__():
+    if route_idx >= depot.route_ending_index().__len__():
         raise Exception('There are not "{}" routes, try numbers between [0,{}] as "route_idx".'
-                        .format(route_idx, depot.routes_ending_indices.__len__() - 1))
-    route_end_idx = depot.__route_ending_index__()[route_idx]
+                        .format(route_idx, depot.routes_ending_indices.len() - 1))
+    route_end_idx = depot.route_ending_index()[route_idx]
     if route_idx == 0:
         route_start_idx = 0
         if return_separator:
@@ -188,7 +188,7 @@ def extract_route_from_depot(depot: Depot, route_idx: int, return_separator=Fals
         route = depot[route_start_idx: route_end_idx]
         return route, route_start_idx, route_end_idx
     else:
-        route_start_idx = depot.__route_ending_index__()[route_idx - 1]
+        route_start_idx = depot.route_ending_index()[route_idx - 1]
         if return_separator:
             route = depot[route_start_idx + 1: route_end_idx + 1]
             return route, route_start_idx + 1, route_end_idx + 1
@@ -249,15 +249,15 @@ def insert_customer(customer: Customer, chromosome: Chromosome) -> (int, int, in
         route.remove(depot_temp)
 
     if route_index > 0:
-        insert_index += nearest_depot.__route_ending_index__()[route_index - 1] + 1
+        insert_index += nearest_depot.route_ending_index()[route_index - 1] + 1
 
     if route_index == -1:
         separator = Customer(9999, nearest_depot.x, nearest_depot.y, 0, True)
-        nearest_depot.__add__(customer)
-        nearest_depot.__add__(separator)
-        insert_index = nearest_depot.__len__() - 2
+        nearest_depot.add(customer)
+        nearest_depot.add(separator)
+        insert_index = nearest_depot.len() - 2
     else:
-        nearest_depot.__insert__(insert_index, customer)
+        nearest_depot.insert(insert_index, customer)
 
     return nearest_depot_index, insert_index
 
