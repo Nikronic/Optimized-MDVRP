@@ -392,3 +392,35 @@ def test_cross_over(supply_population):
             if d.contains(c):
                 flag += 1
     assert flag == route1.__len__()
+
+
+def test_single_data_loader():
+    # test 1
+    depots, customers = IO.single_data_loader('../data/input/p01', '../data/result/p01.res')
+    assert depots[-1].id == 54 and depots[-1].x == 60 and depots[-1].y == 50 and depots[-1].capacity == 80
+    assert depots[0].id == 51 and depots[0].x == 20 and depots[0].y == 20 and depots[0].capacity == 80
+    assert depots.__len__() == 4
+
+    assert customers[-1].id == 50 and customers[-1].x == 56 and customers[-1].y == 37 and customers[-1].cost == 10
+    assert customers[0].id == 1 and customers[0].x == 37 and customers[0].y == 52 and customers[0].cost == 7
+    assert customers.__len__() == 50
+
+    # test 2
+    depots, customers = IO.single_data_loader('../data/input/p23', '../data/result/p23.res')
+    assert depots[-1].id == 369 and depots[-1].x == 110 and depots[-1].y == -110 and depots[-1].capacity == 60
+    assert depots[0].id == 361 and depots[0].x == 0 and depots[0].y == 0 and depots[0].capacity == 60
+    assert depots.__len__() == 9
+
+    assert customers[-1].id == 360 and customers[-1].x == 160 and customers[-1].y == -60 and customers[-1].cost == 1
+    assert customers[0].id == 1 and customers[0].x == -10 and customers[0].y == -10 and customers[0].cost == 12
+    assert customers.__len__() == 360
+
+    # test 3
+    depots, customers = IO.single_data_loader('../data/input/pr01', '../data/result/pr01.res')
+    assert depots[-1].id == 52 and depots[-1].x == -31.201 and depots[-1].y == 0.235 and depots[-1].capacity == 200
+    assert depots[0].id == 49 and depots[0].x == 4.163 and depots[0].y == 13.559 and depots[0].capacity == 200
+    assert depots.__len__() == 4
+
+    assert customers[-1].x == 42.883 and customers[-1].y == -2.966 and customers[-1].cost == 10
+    assert customers[0].id == 1 and customers[0].x == -29.730 and customers[0].y == 64.136 and customers[0].cost == 12
+    assert customers.__len__() == 48
