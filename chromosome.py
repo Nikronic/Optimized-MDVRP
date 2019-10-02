@@ -134,17 +134,28 @@ class Chromosome:
         """
         return self.chromosome[index]
 
-    def describe(self, print_members=False):
+    def describe(self, print_members=False, verbosity=True):
         """
         Print the specifics of the `Chromosome`
+
         :param print_members: Whether or not print the specifics of the `Customer`s and the `Depot`s.
-        :return:
+        :param verbosity: if True, it prints all information of all members, otherwise, only IDs
+        :return: Standard Console text
         """
-        print('ID:{}, fitness_value={}, capacity={}, size={}'.format(
-            self.id, self.fitness, self.capacity, self.len()))
-        if print_members:
-            print('Members: ')
-            for i, dpt in enumerate(self.chromosome):
-                print('Depot #{} Customers:'.format(i + 1))
-                for ctmr in dpt:
-                    ctmr.describe()
+        print('-=-=-=-=-=-=-=-=-=-=-=- Chromosome: STARTED -=-=-=-=-=-=-=-=-=-=-=-')
+        if verbosity:
+            print('ID={}, fitness={}, used capacity={}, size={}'.format(
+                self.id, self.fitness, self.capacity, self.len()))
+            if print_members:
+                print('Members: ')
+                for i, dpt in enumerate(self.chromosome):
+                    print('Depot #{} Customers:'.format(i + 1))
+                    for ctmr in dpt:
+                        ctmr.describe()
+        else:
+            print('ID={}, fitness:{}, used capacity={}, '.
+                  format(self.id, self.fitness_value(), self.used_capacity()), sep='')
+            print('Members IDs=')
+            for d in self:
+                print([c.id for c in d])
+        print('-=-=-=-=-=-=-=-=-=-=-=- Chromosome: Finished -=-=-=-=-=-=-=-=-=-=-=-')

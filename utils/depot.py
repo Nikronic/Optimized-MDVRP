@@ -153,15 +153,24 @@ class Depot:
         """
         return self.depot_customers[index]
 
-    def describe(self, print_members=False):
+    def describe(self, print_members=False, verbosity=False):
         """
         Print the specifics of the `Depot`
+
         :param print_members: Whether or not print the specifics of the `Customer`s in the `Depot`
+        :param verbosity: if True, it prints all information of all members, otherwise, only IDs
         :return:
         """
-        print('ID:{}, coordinate=[{}, {}], capacity={}, size={}'.format(
-            self.id, self.x, self.y, self.capacity, self.size))
-        if print_members:
-            print('Members: ')
-            for c in self.depot_customers:
-                c.describe()
+        print('-=-=-=-=-=-=-=-=-=-=-=- Depot: STARTED -=-=-=-=-=-=-=-=-=-=-=-')
+        if verbosity:
+            print('ID:{}, coordinate=[{}, {}], capacity={}, size={}'.format(
+                self.id, self.x, self.y, self.capacity, self.size))
+            if print_members:
+                print('Members: ')
+                for c in self.depot_customers:
+                    c.describe()
+        else:
+            print('ID={}, capacity={}/{}'.format(self.id, self.used_capacity(), self.capacity), sep='')
+            print('Members IDs=')
+            print([c.id for c in self])
+        print('-=-=-=-=-=-=-=-=-=-=-=- Depot: Finished -=-=-=-=-=-=-=-=-=-=-=-')
