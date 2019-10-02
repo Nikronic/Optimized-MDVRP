@@ -67,6 +67,10 @@ def test_depot_functions(supply_depot: Depot, supply_customer: Customer):
     # __getitem__ , tests subscribable class
     assert supply_depot[0] == supply_depot.depot_customers[0]
 
+    # used_capacity
+    assert supply_depot.used_capacity() > 0
+    assert supply_depot.used_capacity() == sum([c.cost for c in supply_depot])
+
     # get_all
     assert supply_depot.get_all().__len__() == supply_depot.depot_customers.__len__()
 
@@ -133,6 +137,11 @@ def test_chromosome_init(supply_chromosome: Chromosome):
 def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot):
     # __getitem__ , tests subscribable class
     assert supply_chromosome[0] == supply_chromosome.chromosome[0]
+
+    # used_capacity
+    assert supply_chromosome.used_capacity() > supply_chromosome[0].used_capacity()
+    assert supply_chromosome.used_capacity() > supply_chromosome[-1].used_capacity()
+    assert supply_chromosome.used_capacity() == sum([d.used_capacity() for d in supply_chromosome])
 
     # fitness_value
     assert supply_chromosome.fitness_value() == supply_chromosome.fitness

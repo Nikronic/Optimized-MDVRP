@@ -35,6 +35,14 @@ class Chromosome:
         """
         return self.fitness
 
+    def used_capacity(self) -> float:
+        """
+        Returns a float number that demonstrates how much of the capacity of all the `Depot`s have been used.
+
+        :return: A float number
+        """
+        return sum([d.used_capacity() for d in self])
+
     def len(self) -> int:
         """
         Number of `Depot`s in the `chromosome`

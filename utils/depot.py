@@ -44,6 +44,14 @@ class Depot:
         """
         return sorted(self.routes_ending_indices)
 
+    def used_capacity(self) -> float:
+        """
+        Returns a float number that demonstrates how much of the capacity of the `Depot` has been used.
+
+        :return: A float number
+        """
+        return sum([customer.cost for customer in self])
+
     def get_all(self) -> List[Customer]:
         """
         Returns all `Customer`s as a list independently using deep copy
