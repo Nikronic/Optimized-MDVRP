@@ -434,3 +434,18 @@ def test_cross_over(supply_population):
 #     assert customers[-1].x == 42.883 and customers[-1].y == -2.966 and customers[-1].cost == 10
 #     assert customers[0].id == 1 and customers[0].x == -29.730 and customers[0].y == 64.136 and customers[0].cost == 12
 #     assert customers.__len__() == 48
+
+
+def test_generate_random_sample(supply_depot_batch):
+    depots: List[Depot] = supply_depot_batch()
+    customers = []
+    for d in depots:
+        for c in d:
+            customers.append(c)
+        d.clear()
+    chromosome = F.generate_chromosome_sample(depots, customers)
+    index = int(np.argmin([F.euclidean_distance(customers[0], d) for d in depots]))
+    assert chromosome[index].contains(customers[0]) == True
+    index = int(np.argmin([F.euclidean_distance(customers[-1], d) for d in depots]))
+    assert chromosome[index].contains(customers[-1]) == True
+    assert chromosome.len() == depots.__len__()

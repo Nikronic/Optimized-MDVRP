@@ -280,3 +280,21 @@ def cross_over(parents: Population) -> (Population, List[Customer], List[Custome
         insert_customer(c, first_parent)
     crossed_parents = Population(6969, [first_parent, second_parent])
     return crossed_parents, first_route, second_route
+
+
+def generate_chromosome_sample(depots: List[Depot], customers: List[Customer], out: Chromosome = None) -> Chromosome:
+    """
+    Gets a list of `Depot`s and `Customer`s and creates a new `Chromosome` regarding these information.
+    Note: input `Depot` are only `Depot` objects and contains no `Customer` in it, so to fill those `Depot`s,
+        we assign each `Customer` to its NEAREST `Depot` based on `euclidean_distance` metric.
+
+    :param depots: A list of empty `Depot`s
+    :param customers: A list of `Customer`s to be distributed between `Depot`s in the final `Chromosome`
+    :param out: A `Chromosome` type object to be used instead of creating new instance. (All values will be overridden)
+    :return: A filled `Chromosome`
+    """
+    if out is None:
+        out = Chromosome(1001, depots[0].capacity, -1, depots)
+    for c in customers:
+        depots[int(np.argmin([euclidean_distance(c, d) for d in depots]))].add(c)
+    return out
