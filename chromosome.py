@@ -35,13 +35,13 @@ class Chromosome:
         """
         return self.fitness
 
-    def used_capacity(self) -> float:
+    def used_capacity(self) -> List[float]:
         """
-        Returns a float number that demonstrates how much of the capacity of all the `Depot`s have been used.
+        Returns a list of float number that demonstrates how much of the capacity of each `Depot` have been used.
 
-        :return: A float number
+        :return: A list of float number
         """
-        return sum([d.used_capacity() for d in self])
+        return [d.used_capacity() for d in self]
 
     def len(self) -> int:
         """
@@ -144,14 +144,14 @@ class Chromosome:
         """
         print('-=-=-=-=-=-=-=-=-=-=-=- Chromosome: STARTED -=-=-=-=-=-=-=-=-=-=-=-')
         if verbosity:
-            print('ID={}, fitness={}, used capacity={}, size={}'.format(
-                self.id, self.fitness, self.capacity, self.len()))
+            print('ID={}, fitness={}, used capacity={}/{}, size={}'.format(
+                self.id, self.fitness, self.used_capacity(), self.capacity, self.len()))
             if print_members:
                 print('Members: ')
                 for i, dpt in enumerate(self.chromosome):
                     print('Depot #{} Customers:'.format(i + 1))
-                    for ctmr in dpt:
-                        ctmr.describe()
+                    for c in dpt:
+                        c.describe()
         else:
             print('ID={}, fitness:{}, used capacity={}, '.
                   format(self.id, self.fitness_value(), self.used_capacity()), sep='')
