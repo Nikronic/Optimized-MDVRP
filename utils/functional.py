@@ -298,3 +298,17 @@ def generate_chromosome_sample(depots: List[Depot], customers: List[Customer], o
     for c in customers:
         depots[int(np.argmin([euclidean_distance(c, d) for d in depots]))].add(c)
     return out
+
+
+def generate_initial_population(sample: Chromosome, size: int) -> Population:
+    """
+    This method generates an instance of `Population` class with size of `size` and filled with `sample` `Chromosome`
+    which is same. It means we will have a `Population` of cloned `Chromosome`s.
+
+    :param sample: A `Chromosome` to be cloned and disseminated in search area
+    :param size: The size of the `Population`
+    :return: A `Population` instance
+    """
+    population = Population(-6, [clone(sample) for i in range(size)])
+    return population
+

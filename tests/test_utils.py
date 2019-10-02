@@ -449,3 +449,15 @@ def test_generate_random_sample(supply_depot_batch):
     index = int(np.argmin([F.euclidean_distance(customers[-1], d) for d in depots]))
     assert chromosome[index].contains(customers[-1]) == True
     assert chromosome.len() == depots.__len__()
+
+
+def test_generate_initial_population(supply_chromosome):
+    size = 10
+    population = F.generate_initial_population(supply_chromosome, size)
+    assert population.len() == size
+    for i in range(population.len()):
+        assert population[i-1] != population[i]
+    for ch in population:
+        assert ch != supply_chromosome
+    for i in range(population.len()):
+        assert population[i].id == supply_chromosome.id and population[i].fitness == supply_chromosome.fitness
