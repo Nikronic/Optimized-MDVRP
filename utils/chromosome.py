@@ -1,6 +1,6 @@
 from utils.customer import Customer
 from utils.depot import Depot
-# from utils.functional import extract_route_from_depot, euclidean_distance
+from utils import functional as F
 
 from typing import List
 from copy import deepcopy

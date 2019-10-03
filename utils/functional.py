@@ -1,7 +1,7 @@
-from population import Population
+from utils.population import Population
 from utils.customer import Customer
 from utils.depot import Depot
-from chromosome import Chromosome
+from utils.chromosome import Chromosome
 
 import math
 import random

@@ -4,13 +4,12 @@ import pytest
 import numpy as np
 from scipy.spatial import distance
 import math
-import os
 import random
 
-from population import Population
+from utils.population import Population
 from utils.customer import Customer
 from utils.depot import Depot
-from chromosome import Chromosome
+from utils.chromosome import Chromosome
 from utils import functional as F
 import utils.io as IO
 

@@ -1,11 +1,10 @@
 from utils.customer import Customer
 from utils.depot import Depot
-from chromosome import Chromosome
-from population import Population
+from utils.chromosome import Chromosome
+from utils.population import Population
 
 import os
 import re
-import glob
 
 
 def chromosome_to_file(chromosome: Chromosome, path='chromosome.txt'):
@@ -60,7 +59,5 @@ def single_data_loader(input_path: str, result_path: str) -> (Population, Popula
             attrs = line[1:].split(' ')
         depot = Depot(int(attrs[0]), float(attrs[1]), float(attrs[2]), c)
         depots.append(depot)
-
-    # TODO: add result manipulation
 
     return depots, customers
