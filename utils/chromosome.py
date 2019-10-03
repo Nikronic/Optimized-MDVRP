@@ -1,5 +1,6 @@
 from utils.customer import Customer
 from utils.depot import Depot
+# from utils.functional import extract_route_from_depot, euclidean_distance
 
 from typing import List
 from copy import deepcopy
@@ -30,9 +31,22 @@ class Chromosome:
 
     def fitness_value(self) -> float:
         """
-        The fitness_value value of the Chromosome based on the defined criteria in `Functions.py`
-        :return: A value regarding metric
+        The fitness value of the Chromosome will be calculated based on the defined criteria below:
+        1. Calculate how many routes a `Chromosome` has aliased as route_count
+        2. Calculate the distance in a route by summing up the distances between all members of route sequentially
+            using `euclidean_distance` function aliases as distance.
+        3. Fitness =  route_count + distance (note it could be weighted sum)
+
+        :return: A float value regarding metric
         """
+        # distance = 0
+        # route_count = 0
+        #
+        # for depot in self:
+        #     for route_idx in range(depot.route_ending_index().__len__()):
+        #         route = extract_route_from_depot(depot, route_idx)
+        #         distance += sum([euclidean_distance(route[idx], route[idx+1]) for idx in range(route.__len__())])
+        # self.fitness = distance + route_count
         return self.fitness
 
     def used_capacity(self) -> List[float]:

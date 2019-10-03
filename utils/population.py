@@ -1,4 +1,4 @@
-from chromosome import Chromosome
+from utils.chromosome import Chromosome
 
 from typing import List
 from copy import deepcopy
