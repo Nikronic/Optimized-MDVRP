@@ -29,16 +29,18 @@ class Chromosome:
         self.size = self.chromosome.__len__()
         self.fitness = fitness
 
-    def fitness_value(self) -> float:
+    def fitness_value(self, weight=None) -> float:
         """
         The fitness value of the Chromosome will be calculated based on the defined criteria below:
         1. Calculate how many routes a `Chromosome` has aliased as route_count
         2. Calculate the distance in a route by summing up the distances between all members of route sequentially
             using `euclidean_distance` function aliases as distance.
-        3. Fitness =  route_count + distance (note it could be weighted sum)
+        3. Fitness =  w1*route_count + w2*distance (The C# source code, uses [1, 1] weights.)
 
         :return: A float value regarding metric
         """
+        if weight is None:
+            weight = [100, 0.001]
         distance = 0
         route_count = 0
         for depot in self:
@@ -49,7 +51,7 @@ class Chromosome:
                 distance += sum([F.euclidean_distance(route[i - 1], route[i]) for i, _ in enumerate(route)])
                 route.remove(temp_depot)
             route_count += depot.route_ending_index().__len__()
-        self.fitness = distance + route_count
+        self.fitness = weight[0]*distance + weight[1]*route_count
         return self.fitness
 
     def used_capacity(self) -> List[float]:
