@@ -21,6 +21,7 @@ def chromosome_to_file(chromosome: Chromosome, path='chromosome.txt'):
         for c in d:
             line = str(c.id)+' '+str(c.x)+' '+str(c.y)+' '+str(c.cost)+' '+str(c.null).lower()+'\n'
             file.write(line)
+    file.close()
 
 
 def single_data_loader(input_path: str, result_path: str) -> (Population, Population):
