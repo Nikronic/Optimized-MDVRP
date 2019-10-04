@@ -225,7 +225,7 @@ def test_initialize_routing(supply_population, supply_chromosome, supply_depot):
 def test_randomize_customers(supply_chromosome):
     di = random.randint(0, supply_chromosome.len()-1)
     l: int = supply_chromosome[di].len()
-    c = supply_chromosome[di][math.ceil(supply_chromosome.len() / 2)]
+    c = supply_chromosome[di][math.ceil(supply_chromosome[di].len() / 2)]
     ic = supply_chromosome[di].index(c)
     F.randomize_customers(supply_chromosome)
     assert supply_chromosome[di].len() == l
