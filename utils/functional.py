@@ -310,6 +310,10 @@ def generate_initial_population(sample: Chromosome, size: int) -> Population:
     :param size: The size of the `Population`
     :return: A `Population` instance
     """
-    population = Population(-6, [clone(sample) for i in range(size)])
+    chromosomes = [clone(sample) for i in range(size)]
+    for ch in chromosomes:
+        initialize_routing(ch)
+        randomize_customers(ch)
+    population = Population(-6, chromosomes)
     return population
 
