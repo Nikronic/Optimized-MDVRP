@@ -143,8 +143,13 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
     assert supply_chromosome.used_capacity() == [d.used_capacity() for d in supply_chromosome]
 
     # fitness_value
-    assert supply_chromosome.fitness_value() == supply_chromosome.fitness
-    assert supply_chromosome.fitness_value() == -1
+    assert supply_chromosome.fitness == -1
+    F.initialize_routing(supply_chromosome)
+    file_path = "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt"
+    IO.chromosome_to_file(supply_chromosome, file_path)
+    supply_chromosome.fitness_value()
+    assert supply_chromosome.fitness == supply_chromosome.fitness_value()
+    # assertion has been approved by expert and using previously implemented code.
 
     # get_all
     assert supply_chromosome.get_all().__len__() == supply_chromosome.chromosome.__len__()
@@ -367,8 +372,8 @@ def test_insert_customer(supply_chromosome):
     customer = Customer(10101010, 50, 50, 50, False)
     for d in supply_chromosome:
         F.initial_routing(d)
-    file_path = "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt"
-    IO.chromosome_to_file(supply_chromosome, file_path)
+    # file_path = "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt"
+    # IO.chromosome_to_file(supply_chromosome, file_path)
     di, ii = F.insert_customer(customer, supply_chromosome)
     assert supply_chromosome[di].contains(customer) == True
     assert supply_chromosome[di][ii].id == customer.id

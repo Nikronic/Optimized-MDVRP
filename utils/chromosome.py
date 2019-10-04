@@ -39,14 +39,17 @@ class Chromosome:
 
         :return: A float value regarding metric
         """
-        # distance = 0
-        # route_count = 0
-        #
-        # for depot in self:
-        #     for route_idx in range(depot.route_ending_index().__len__()):
-        #         route = extract_route_from_depot(depot, route_idx)
-        #         distance += sum([euclidean_distance(route[idx], route[idx+1]) for idx in range(route.__len__())])
-        # self.fitness = distance + route_count
+        distance = 0
+        route_count = 0
+        for depot in self:
+            for route_idx in range(depot.route_ending_index().__len__()):
+                route, _, _ = F.extract_route_from_depot(depot, route_idx)
+                temp_depot = Customer(0, depot.x, depot.y, 0, False)
+                route.insert(0, temp_depot)
+                distance += sum([F.euclidean_distance(route[i - 1], route[i]) for i, _ in enumerate(route)])
+                route.remove(temp_depot)
+            route_count += depot.route_ending_index().__len__()
+        self.fitness = distance + route_count
         return self.fitness
 
     def used_capacity(self) -> List[float]:
@@ -168,7 +171,7 @@ class Chromosome:
                         c.describe()
         else:
             print('ID={}, fitness:{}, used capacity={}, '.
-                  format(self.id, self.fitness_value(), self.used_capacity()), sep='')
+                  format(self.id, self.fitness, self.used_capacity()), sep='')
             print('Members IDs=')
             for d in self:
                 print([c.id for c in d])
