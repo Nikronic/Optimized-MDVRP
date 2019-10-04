@@ -66,14 +66,15 @@ def initialize_routing(instance) -> None:
 
 
 # aliased in C# as "RandomList"
-def randomize_customers(depot: Depot) -> None:
+def randomize_customers(chromosome: Chromosome) -> None:
     """
-    Randomizes all customers in a `Depot` a.k.a shuffling.
+    Randomizes all customers in all `Depot`s of the given `Chromsome` a.k.a shuffling.
     We use this method to build initial population using random `Chromosome`s.
-    :param depot: An instance of `Depot` class
+    :param chromosome: An instance of `Chromosome` class.
     :return: None
     """
-    random.shuffle(depot.depot_customers)
+    for d in chromosome:
+        random.shuffle(d.depot_customers)
 
 
 def clone(chromosome: Chromosome) -> Chromosome:

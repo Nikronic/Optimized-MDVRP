@@ -145,8 +145,8 @@ def test_chromosome_functions(supply_chromosome: Chromosome, supply_depot: Depot
     # fitness_value
     assert supply_chromosome.fitness == -1
     F.initialize_routing(supply_chromosome)
-    file_path = "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt"
-    IO.chromosome_to_file(supply_chromosome, file_path)
+    # file_path = "F:/Data/Github/MDVRP_UoG-master/MDVRP_UoG-master/MDVRP_UoG/MDVRP_ORIG/bin/Debug/chromosome.txt"
+    # IO.chromosome_to_file(supply_chromosome, file_path)
     supply_chromosome.fitness_value()
     assert supply_chromosome.fitness == supply_chromosome.fitness_value()
     # assertion has been approved by expert and using previously implemented code.
@@ -222,12 +222,14 @@ def test_initialize_routing(supply_population, supply_chromosome, supply_depot):
     F.initialize_routing(supply_depot)
 
 
-def test_randomize_customers(supply_depot):
-    l: int = supply_depot.len()
-    c = supply_depot[math.ceil(supply_depot.len() / 2)]
-    F.randomize_customers(supply_depot)
-    assert supply_depot.len() == l
-    assert supply_depot.contains(c) == True
+def test_randomize_customers(supply_chromosome):
+    di = random.randint(0, supply_chromosome.len()-1)
+    l: int = supply_chromosome[di].len()
+    c = supply_chromosome[di][math.ceil(supply_chromosome.len() / 2)]
+    ic = supply_chromosome[di].index(c)
+    F.randomize_customers(supply_chromosome)
+    assert supply_chromosome[di].len() == l
+    assert supply_chromosome[di].contains(c) == True
 
 
 def test_clone(supply_chromosome):
