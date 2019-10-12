@@ -111,3 +111,5 @@ class Population:
         :return: A `Chromosome` class from `Population`.
         """
         return self.chromosomes[index]
+
+    # TODO add describe method
