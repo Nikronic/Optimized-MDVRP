@@ -317,3 +317,21 @@ def generate_initial_population(sample: Chromosome, size: int) -> Population:
     population = Population(-6, chromosomes)
     return population
 
+
+def generate_new_population(population: Population):
+    """
+    Generates new `Population` by crossing over winners of tournament algorithm over the whole input `Population`.
+    Note: We always save the fittest for next generation, if it causes size mismatch, we remove latest new `Chromosome`.
+
+    :param population: An initialized instance of`Population`
+    :return: An evolved instance `Population`
+    """
+
+    new_population = Population(123, [fittest_chromosome(population)])
+    while new_population.len() < population.len():
+        crossed_parents = cross_over(tournament(population, 0.8, population.len()))
+        for ch in crossed_parents:
+            new_population.add(ch)
+    if new_population.len() > population.len():
+        new_population.remove_at(-1)
+    return new_population
