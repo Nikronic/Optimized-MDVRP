@@ -320,11 +320,13 @@ def test_tournament(supply_population):
     assert parents.len() == 2
     assert supply_population.contains(parents[0]) == True
     assert supply_population.contains(parents[1]) == True
+    assert parents[0] != parents[1]
 
     parents = F.tournament(supply_population, 0.0)  # force to use random parents not fittest ('else' condition)
     assert parents.len() == 2
     assert supply_population.contains(parents[0]) == True
     assert supply_population.contains(parents[1]) == True
+    assert parents[0] != parents[1]
 
 
 def test_routes_ending_indices_attr(supply_depot: Depot):

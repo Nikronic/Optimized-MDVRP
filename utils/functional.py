@@ -122,6 +122,7 @@ def tournament(population: Population, tournament_probability: float = 0.8, size
     3. Select another random unique sample from the population
     4. Find fittest chromosomes from each sampled populations and return them as new population.
     5. Randomly choose two chromosomes and return them as a new population.
+
     :param population: An instance of `Population` class
     :param tournament_probability: The probability of using fittest or random sample (=0.8)
     :param size: The size of population to be sampled. By default, we use Binary tournament (size = 2).
@@ -133,6 +134,8 @@ def tournament(population: Population, tournament_probability: float = 0.8, size
         second_sample = extract_population(population, size)
         first_fittest = fittest_chromosome(first_sample)
         second_fittest = fittest_chromosome(second_sample)
+        while first_sample == second_fittest:
+            second_fittest = fittest_chromosome(second_sample)
         return Population(0, [first_fittest, second_fittest])
     else:
         indices = random.sample(range(0, first_sample.len()), 2)
