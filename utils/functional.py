@@ -122,24 +122,43 @@ def tournament(population: Population, tournament_probability: float = 0.8, size
     3. Select another random unique sample from the population
     4. Find fittest chromosomes from each sampled populations and return them as new population.
     5. Randomly choose two chromosomes and return them as a new population.
+    Note: if samples be same, then fittest `chromosome` of the samples both will be same `Chromosome`s. So as we want to
+        pass the result of `tournament` to `cross_over`, the cross over operation is asexual or single-parent.
 
     :param population: An instance of `Population` class
     :param tournament_probability: The probability of using fittest or random sample (=0.8)
-    :param size: The size of population to be sampled. By default, we use Binary tournament (size = 2).
+    :param size: The size of population to be sampled. By default, we use Binary tournament.
     :return: A `Population` with size of `size`
     """
+
+    # we create new objects to make sure asexual can happen too. (all methods are by reference)
+    first_fittest = Chromosome(7770, -1)
+    second_fittest = Chromosome(7771, -1)
 
     first_sample = extract_population(population, size)
     if random.random() <= tournament_probability:
         second_sample = extract_population(population, size)
-        first_fittest = fittest_chromosome(first_sample)
-        second_fittest = fittest_chromosome(second_sample)
-        while first_sample == second_fittest:
-            second_fittest = fittest_chromosome(second_sample)
+        first = fittest_chromosome(first_sample)
+        second = fittest_chromosome(second_sample)
+        for new, found in zip([first_fittest, second_fittest], [first, second]):
+            new.chromosome = found.get_all()
+            new.id = found.id
+            new.fitness = found.fitness
+            new.capacity = found.capacity
+            new.size = found.size
+
         return Population(0, [first_fittest, second_fittest])
     else:
         indices = random.sample(range(0, first_sample.len()), 2)
-        return Population(0, [first_sample[indices[0]], first_sample[indices[1]]])
+        first = first_sample[indices[0]]
+        second = first_sample[indices[1]]
+        for new, found in zip([first_fittest, second_fittest], [first, second]):
+            new.chromosome = found.get_all()
+            new.id = found.id
+            new.fitness = found.fitness
+            new.capacity = found.capacity
+            new.size = found.size
+        return Population(0, [first_fittest, second_fittest])
 
 
 def extract_random_route(chromosome: Chromosome, delete=True) -> (List[Customer], int, int, int):

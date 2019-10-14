@@ -318,15 +318,52 @@ def test_fittest_chromosome(supply_population):
 def test_tournament(supply_population):
     parents = F.tournament(supply_population)
     assert parents.len() == 2
-    assert supply_population.contains(parents[0]) == True
-    assert supply_population.contains(parents[1]) == True
+
+    f = 0
+    idcs = [-1, -1]
+    for idx, ch in enumerate(supply_population):
+        if ch.id == parents[0].id and ch.fitness_value() == parents[0].fitness_value():
+            f += 1
+            idcs[0] = idx
+        if ch.id == parents[1].id and ch.fitness_value() == parents[1].fitness_value():
+            f += 1
+            idcs[1] = idx
+    assert f >= 2
     assert parents[0] != parents[1]
+
+    for p, ch in zip([p for p in parents], [supply_population[idcs[0]], supply_population[idcs[1]]]):
+        assert p.id == ch.id
+
+    assert parents[0].chromosome[0].x == supply_population[idcs[0]].chromosome[0].x
+    assert parents[0].chromosome[0].y == supply_population[idcs[0]].chromosome[0].y
+
+    assert parents[1].chromosome[0].x == supply_population[idcs[1]].chromosome[0].x
+    assert parents[1].chromosome[0].y == supply_population[idcs[1]].chromosome[0].y
 
     parents = F.tournament(supply_population, 0.0)  # force to use random parents not fittest ('else' condition)
     assert parents.len() == 2
-    assert supply_population.contains(parents[0]) == True
-    assert supply_population.contains(parents[1]) == True
     assert parents[0] != parents[1]
+
+    f = 0
+    idcs = [-1, -1]
+    for idx, ch in enumerate(supply_population):
+        if ch.id == parents[0].id and ch.fitness_value() == parents[0].fitness_value():
+            f += 1
+            idcs[0] = idx
+        if ch.id == parents[1].id and ch.fitness_value() == parents[1].fitness_value():
+            f += 1
+            idcs[1] = idx
+    assert f >= 2
+    assert parents[0] != parents[1]
+
+    for p, ch in zip([p for p in parents], [supply_population[idcs[0]], supply_population[idcs[1]]]):
+        assert p.id == ch.id
+
+    assert parents[0].chromosome[0].x == supply_population[idcs[0]].chromosome[0].x
+    assert parents[0].chromosome[0].y == supply_population[idcs[0]].chromosome[0].y
+
+    assert parents[1].chromosome[0].x == supply_population[idcs[1]].chromosome[0].x
+    assert parents[1].chromosome[0].y == supply_population[idcs[1]].chromosome[0].y
 
 
 def test_routes_ending_indices_attr(supply_depot: Depot):
