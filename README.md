@@ -1,4 +1,23 @@
 **This project is under developement, after achieving reliable results, this document will be fully updated.**
+
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
+[![GitHub license](https://img.shields.io/github/license/Nikronic/Optimized-MDVRP.svg)](https://github.com/Nikronic/Optimized-MDVRP/blob/master/LICENSE)
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Nikronic/badges/)
+
+
+[![GitHub release](https://img.shields.io/github/release/Nikronic/Optimized-MDVRP.svg)](https://github.com/Nikronic/Optimized-MDVRP/releases/)
+[![GitHub tag](https://img.shields.io/github/tag/Nikronic/Optimized-MDVRP.svg)](https://github.com/Nikronic/Optimized-MDVRP/tags/)
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+![Tweeting](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)
+
+
+
+
+
+
 # Optimized-MDVRP
 "Using Genetic Algorithms for Multi-depot Vehicle Routing" paper implementation.
 
