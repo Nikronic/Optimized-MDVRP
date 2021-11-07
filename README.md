@@ -33,6 +33,7 @@ This project was part of the *Computational Intelligence* course.
 ## Citation
 Please cite this project as:
 
-Mohammad Doosti Lakhani. (2020, May 21). Nikronic/Optimized-MDVRP: DOI Release (Version v0.1-alpha). Zenodo. http://doi.org/10.5281/zenodo.3838616
+Nikan Doosti. (2020). Nikronic/Optimized-MDVRP: DOI Release (v0.1-alpha). Zenodo. https://doi.org/10.5281/zenodo.3838616
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3838616.svg)](https://doi.org/10.5281/zenodo.3838616)
+
